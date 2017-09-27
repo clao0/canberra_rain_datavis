@@ -1,8 +1,9 @@
-# COMP1720 template
+# COMP1720 assignment 4 template
 
-Here's the **javascript** template for making p5 sketches for COMP1720. If
-you've used Processing before, the p5 function names and general worldview will
-be really similar.
+Here's the **javascript** template for assignment 4, see the assignment page for
+more details:
+
+<https://cs.anu.edu.au/courses/comp1720/assignments/04-creative-datavis/>
 
 ## Setup
 
