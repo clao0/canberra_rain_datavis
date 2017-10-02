@@ -2,6 +2,7 @@ var data;
 
 // cat image
 var cat;
+
 // image of cat chasing mouse
 var catMouse;
 
@@ -14,6 +15,9 @@ var locY;
 
 // names of locations
 var locNames;
+
+// altitude of locations
+var altitudes;
 
 // sets width and height of rows/cols
 var rowWidth;
@@ -49,8 +53,12 @@ function setup() {
 
     locY = [colHeight*7, colHeight*5, colHeight*8, colHeight, colHeight*17,
       colHeight*3];
+
     locNames = ["Parliament House", "Botanic Gardens", "Ainslie",
   "Aranda", "Queanbeyan", "Torrens"];
+
+    altitudes = [585, 585, 585, 630, 580, 653];
+
     catMoving = false;
 
     amatic = loadFont("assets/AmaticSC-Regular.ttf");
@@ -60,14 +68,26 @@ function setup() {
 function draw() {
     // your "draw loop" code goes here
    background("#c0eaf9");
-   image(cat, mouseX, mouseY, cat.width/10, cat.height/10);
+   for (var i = 0; i < 6; i++) {
+   if (dist(mouseX, mouseY, locX[i], locY[i]) < 10) {
+     image(catMouse, mouseX, mouseY, catMouse.width/10, catMouse.height/10);
+   } else {
+   image(cat, windowWidth/2, windowHeight/2, cat.width/10, cat.height/10);
+}
+}
+// how to make cat move towards the point?
+// clarify with tutor
 
+
+// draws locations
    for (var i = 0; i < 6; i++) {
      ellipse(locX[i], locY[i], 20);
-     text(locNames[i], locX[i], locY[i]-20);
+     text(locNames[i], locX[i], locY[i]-40);
+     text("Elevation:"+altitudes[i]+" m", locX[i], locY[i]-20);
      textFont(amatic, 20);
    }
 
+// highlights location if clicked
    distance(mouseX, mouseY);
 
 }
@@ -87,10 +107,8 @@ function distance(x, y) {
 // draws a cloud at coordinates (x, y)
 function drawCloud(x, y, scale) {
 
-  translate(x, y);
-
   noStroke();
-
+  translate(x, y);
 
   drawRain(80, 60+(frameCount*0.5%60));
   drawRain(60, 30+(frameCount%60));
@@ -109,8 +127,6 @@ function drawCloud(x, y, scale) {
   fill("#d86a8b");
   arc(125*scale, 115*scale, 10*scale, 10*scale, PI, TWO_PI);
   fill(0, 0, 0);
-// 1. raindrops start at the 50cloud
-// 2. they fall for
 
   translate(-x, -y);
 }
