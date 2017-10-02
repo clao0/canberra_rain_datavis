@@ -23,6 +23,9 @@ var colHeight;
 var rowNum;
 var colNum;
 
+// amatic font
+var amatic;
+
 function preload() {
     data = loadJSON("assets/rainfall.json");
     cat = loadImage("assets/cat.png");
@@ -41,11 +44,6 @@ function setup() {
     rowWidth = windowWidth/rowNum;
     colHeight = windowHeight/colNum;
 
-
-
-    //arr - 35.26, ain - 35.26, bg - 35.28, ph - 35.31, q - 35.36, t - 35.38
-    //arr - 7, t - 9, bg - 11, ph - 13, ain - 14, q, 23
-
     locX = [rowWidth*6, rowWidth*3, rowWidth, rowWidth, rowWidth*11,
     rowWidth*13];
 
@@ -54,6 +52,8 @@ function setup() {
     locNames = ["Parliament House", "Botanic Gardens", "Ainslie",
   "Aranda", "Queanbeyan", "Torrens"];
     catMoving = false;
+
+    amatic = loadFont("assets/AmaticSC-Regular.ttf");
 
 }
 
@@ -64,5 +64,44 @@ function draw() {
 
    for (var i = 0; i < 6; i++) {
      ellipse(locX[i], locY[i], 20);
+     text(locNames[i], locX[i], locY[i]-20);
+     textFont(amatic, 20);
    }
+
+   distance(mouseX, mouseY);
+
+}
+
+// fills in ellipse on map if you click on the point
+function distance(x, y) {
+  for (var i = 0; i < 6; i++) {
+  if (dist(x, y, locX[i], locY[i]) < 10) {
+    fill("#d86a8b");
+    ellipse(locX[i], locY[i], 20);
+    fill(0,0,0);
+    drawCloud(locX[i]-60, locY[i]-200, 0.5);
+  }
+}
+}
+
+// draws a cloud at coordinates (x, y)
+function drawCloud(x, y, scale) {
+
+  translate(x, y);
+
+  noStroke();
+  fill("#ffffff");
+
+  ellipse(100*scale, 100*scale, 90*scale);
+  ellipse(125*scale, 50*scale, 80*scale);
+  ellipse(175*scale, 50*scale, 80*scale);
+  ellipse(200*scale, 90*scale, 90*scale);
+  ellipse(150*scale, 110*scale, 60*scale);
+  fill(0,0,0);
+  ellipse(100*scale, 100*scale, 12*scale);
+  ellipse(150*scale, 100*scale, 12*scale);
+  fill("#d86a8b");
+  arc(125*scale, 115*scale, 10*scale, 10*scale, PI, TWO_PI);
+  fill(0,0,0);
+  translate(-x, -y);
 }
