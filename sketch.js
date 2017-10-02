@@ -90,6 +90,12 @@ function drawCloud(x, y, scale) {
   translate(x, y);
 
   noStroke();
+
+
+  drawRain(80, 60+(frameCount*0.5%60));
+  drawRain(60, 30+(frameCount%60));
+  drawRain(100, 50+(frameCount*1.2%60));
+
   fill("#ffffff");
 
   ellipse(100*scale, 100*scale, 90*scale);
@@ -102,6 +108,17 @@ function drawCloud(x, y, scale) {
   ellipse(150*scale, 100*scale, 12*scale);
   fill("#d86a8b");
   arc(125*scale, 115*scale, 10*scale, 10*scale, PI, TWO_PI);
-  fill(0,0,0);
+  fill(0, 0, 0);
+// 1. raindrops start at the 50cloud
+// 2. they fall for
+
   translate(-x, -y);
+}
+
+// draws rain at coordinate(x, y)
+function drawRain(x, y) {
+  fill("#5385d6");
+  ellipse(x, y, 10);
+  triangle(x-5, y, x, y-10, x+5, y);
+  fill(0,0,0);
 }
