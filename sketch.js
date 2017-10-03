@@ -67,7 +67,11 @@ function setup() {
 
 function draw() {
     // your "draw loop" code goes here
+
+    // for blended backgrounds, rects, slightly different colours
    background("#c0eaf9");
+
+   // for loop error
    for (var i = 0; i < 6; i++) {
    if (dist(mouseX, mouseY, locX[i], locY[i]) < 10) {
      image(catMouse, windowWidth/2, windowHeight/2, catMouse.width/10, catMouse.height/10);
@@ -75,7 +79,6 @@ function draw() {
    image(cat, windowWidth/2, windowHeight/2, cat.width/10, cat.height/10);
 }
 }
-
 
 // draws locations
    for (var i = 0; i < 6; i++) {
@@ -87,6 +90,34 @@ function draw() {
 
 // highlights location if clicked
    distance(mouseX, mouseY);
+
+}
+
+function drawX(startX, endX) {
+
+}
+
+
+function drawPath(startX, startY, endX, endY) {
+  if (startX < endX) {
+    while (startX < endX) {
+      startX++;
+    }
+  } else {
+    while (startX > endX) {
+      startX--;
+    }
+  }
+
+  if (startY < endY) {
+    while (startY < endY) {
+      startY++;
+    }
+  } else {
+    while (startY > endY) {
+      startY--;
+    }
+  }
 
 }
 
