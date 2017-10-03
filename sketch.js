@@ -30,6 +30,20 @@ var colNum;
 // amatic font
 var amatic;
 
+// counts time in a recursive manner
+var time;
+
+// starting position of the cat
+var startPos;
+
+// paths to destinations
+var path0;
+var path1;
+var path3;
+var path4;
+var path5;
+
+
 function preload() {
     data = loadJSON("assets/rainfall.json");
     cat = loadImage("assets/cat.png");
@@ -39,6 +53,7 @@ function preload() {
 function setup() {
     createCanvas(windowWidth, windowHeight);
 
+    frameRate(30);
     // this line is required due to a bug in the current version of p5
     // https://github.com/processing/p5.js/issues/2154
     data = Object.values(data);
@@ -63,6 +78,15 @@ function setup() {
 
     amatic = loadFont("assets/AmaticSC-Regular.ttf");
 
+    startPos = [windowWidth/2, windowHeight/2];
+
+    path0 = [windowWidth/2, windowHeight/2];
+    path1 = [windowWidth/2, windowHeight/2];
+    path2 = [windowWidth/2, windowHeight/2];
+    path3 = [windowWidth/2, windowHeight/2];
+    path4 = [windowWidth/2, windowHeight/2];
+    path5 = [windowWidth/2, windowHeight/2];
+
 }
 
 function draw() {
@@ -70,9 +94,21 @@ function draw() {
 
     // for blended backgrounds, rects, slightly different colours
    background("#c0eaf9");
+
+// while (path0[0] > locX[0]) {
+//   path0[0]-=frameCount;
+// }
 //
+// while(path0[1] > locY[0]) {
+//   path0[1]-=frameCount;
+// }
+
 if (dist(mouseX, mouseY, locX[0], locY[0]) < 10) {
-     image(catMouse, windowWidth/2, windowHeight/2, catMouse.width/10, catMouse.height/10);
+  if (path0[0] - frameCount > locX[0] && path0[1] - frameCount > locY[0]) {
+       image(catMouse,path0[0]-frameCount, path0[1]-frameCount, catMouse.width/10, catMouse.height/10);
+  } else {
+       image(cat, locX[0], locY[0], cat.width/10, cat.height/10);
+  }
 } else if (dist(mouseX, mouseY, locX[1], locY[1]) < 10) {
      image(catMouse, windowWidth/2, windowHeight/2, catMouse.width/10, catMouse.height/10);
 }  else if (dist(mouseX, mouseY, locX[2], locY[2]) < 10) {
@@ -81,13 +117,11 @@ if (dist(mouseX, mouseY, locX[0], locY[0]) < 10) {
      image(catMouse, windowWidth/2, windowHeight/2, catMouse.width/10, catMouse.height/10);
 }  else if (dist(mouseX, mouseY, locX[4], locY[4]) < 10) {
      image(catMouse, windowWidth/2, windowHeight/2, catMouse.width/10, catMouse.height/10);
-}  else
-if (dist(mouseX, mouseY, locX[5], locY[5]) < 10) {
+}  else if (dist(mouseX, mouseY, locX[5], locY[5]) < 10) {
      image(catMouse, windowWidth/2, windowHeight/2, catMouse.width/10, catMouse.height/10);
 } else {
    image(cat, windowWidth/2, windowHeight/2, cat.width/10, cat.height/10);
 }
-
 
 // draws locations
    for (var i = 0; i < 6; i++) {
@@ -102,31 +136,10 @@ if (dist(mouseX, mouseY, locX[5], locY[5]) < 10) {
 
 }
 
-function drawX(startX, endX) {
-
+function drawPath(start, end) {
+if (start > end) {
+  start - (start-end);
 }
-
-
-function drawPath(startX, startY, endX, endY) {
-  if (startX < endX) {
-    while (startX < endX) {
-      startX++;
-    }
-  } else {
-    while (startX > endX) {
-      startX--;
-    }
-  }
-
-  if (startY < endY) {
-    while (startY < endY) {
-      startY++;
-    }
-  } else {
-    while (startY > endY) {
-      startY--;
-    }
-  }
 
 }
 
