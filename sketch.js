@@ -70,15 +70,24 @@ function draw() {
 
     // for blended backgrounds, rects, slightly different colours
    background("#c0eaf9");
-
-   // for loop error
-   for (var i = 0; i < 6; i++) {
-   if (dist(mouseX, mouseY, locX[i], locY[i]) < 10) {
+//
+if (dist(mouseX, mouseY, locX[0], locY[0]) < 10) {
      image(catMouse, windowWidth/2, windowHeight/2, catMouse.width/10, catMouse.height/10);
-   } else {
+} else if (dist(mouseX, mouseY, locX[1], locY[1]) < 10) {
+     image(catMouse, windowWidth/2, windowHeight/2, catMouse.width/10, catMouse.height/10);
+}  else if (dist(mouseX, mouseY, locX[2], locY[2]) < 10) {
+     image(catMouse, windowWidth/2, windowHeight/2, catMouse.width/10, catMouse.height/10);
+}  else if (dist(mouseX, mouseY, locX[3], locY[3]) < 10) {
+     image(catMouse, windowWidth/2, windowHeight/2, catMouse.width/10, catMouse.height/10);
+}  else if (dist(mouseX, mouseY, locX[4], locY[4]) < 10) {
+     image(catMouse, windowWidth/2, windowHeight/2, catMouse.width/10, catMouse.height/10);
+}  else
+if (dist(mouseX, mouseY, locX[5], locY[5]) < 10) {
+     image(catMouse, windowWidth/2, windowHeight/2, catMouse.width/10, catMouse.height/10);
+} else {
    image(cat, windowWidth/2, windowHeight/2, cat.width/10, cat.height/10);
 }
-}
+
 
 // draws locations
    for (var i = 0; i < 6; i++) {
