@@ -70,13 +70,11 @@ function draw() {
    background("#c0eaf9");
    for (var i = 0; i < 6; i++) {
    if (dist(mouseX, mouseY, locX[i], locY[i]) < 10) {
-     image(catMouse, mouseX, mouseY, catMouse.width/10, catMouse.height/10);
+     image(catMouse, windowWidth/2, windowHeight/2, catMouse.width/10, catMouse.height/10);
    } else {
    image(cat, windowWidth/2, windowHeight/2, cat.width/10, cat.height/10);
 }
 }
-// how to make cat move towards the point?
-// clarify with tutor
 
 
 // draws locations
@@ -138,3 +136,13 @@ function drawRain(x, y) {
   triangle(x-5, y, x, y-10, x+5, y);
   fill(0,0,0);
 }
+
+// change clouds
+// make cat walk
+// add sfx
+// make the cloud stay when clicked
+// make sky change colour
+// add pictures of parliament etc.
+// draw a path where the cat goes
+// make rain in different directions
+// select 5 years or something
