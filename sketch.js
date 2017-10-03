@@ -43,6 +43,16 @@ var path3;
 var path4;
 var path5;
 
+// counts the distance moved towards each location
+var pCount0;
+var pCount1;
+var pCount2;
+var pCount3;
+var pCount4;
+var pCount5;
+
+// stores current location of the cat
+var catLoc;
 
 function preload() {
     data = loadJSON("assets/rainfall.json");
@@ -58,16 +68,19 @@ function setup() {
     // https://github.com/processing/p5.js/issues/2154
     data = Object.values(data);
     // any additional setup code goes here
-    rowNum = 14;
+    rowNum = 16;
     colNum = 18;
     rowWidth = windowWidth/rowNum;
     colHeight = windowHeight/colNum;
 
-    locX = [rowWidth*6, rowWidth*3, rowWidth, rowWidth, rowWidth*11,
-    rowWidth*13];
+    locX = [rowWidth*7, rowWidth*4, rowWidth*2, rowWidth*2, rowWidth*12,
+    rowWidth*14];
 
-    locY = [colHeight*7, colHeight*5, colHeight*8, colHeight, colHeight*17,
-      colHeight*3];
+    locY = [colHeight*8, colHeight*6, colHeight*9, colHeight*2, colHeight*17,
+      colHeight*4];
+
+      // need to create more space
+      // don't want clouds to overshadow stuff
 
     locNames = ["Parliament House", "Botanic Gardens", "Ainslie",
   "Aranda", "Queanbeyan", "Torrens"];
@@ -78,14 +91,7 @@ function setup() {
 
     amatic = loadFont("assets/AmaticSC-Regular.ttf");
 
-    startPos = [windowWidth/2, windowHeight/2];
-
-    path0 = [windowWidth/2, windowHeight/2];
-    path1 = [windowWidth/2, windowHeight/2];
-    path2 = [windowWidth/2, windowHeight/2];
-    path3 = [windowWidth/2, windowHeight/2];
-    path4 = [windowWidth/2, windowHeight/2];
-    path5 = [windowWidth/2, windowHeight/2];
+    catLoc = [windowWidth/2, windowHeight/2];
 
 }
 
@@ -95,32 +101,25 @@ function draw() {
     // for blended backgrounds, rects, slightly different colours
    background("#c0eaf9");
 
-// while (path0[0] > locX[0]) {
-//   path0[0]-=frameCount;
-// }
-//
-// while(path0[1] > locY[0]) {
-//   path0[1]-=frameCount;
-// }
+// why don't you have an array that stores the location of the cat instead?
+// needs to account for things like other arrays and all that jazz
+
+
 
 if (dist(mouseX, mouseY, locX[0], locY[0]) < 10) {
-  if (path0[0] - frameCount > locX[0] && path0[1] - frameCount > locY[0]) {
-       image(catMouse,path0[0]-frameCount, path0[1]-frameCount, catMouse.width/10, catMouse.height/10);
-  } else {
-       image(cat, locX[0], locY[0], cat.width/10, cat.height/10);
-  }
+    moveCat(0);
 } else if (dist(mouseX, mouseY, locX[1], locY[1]) < 10) {
-     image(catMouse, windowWidth/2, windowHeight/2, catMouse.width/10, catMouse.height/10);
+    moveCat(1);
 }  else if (dist(mouseX, mouseY, locX[2], locY[2]) < 10) {
-     image(catMouse, windowWidth/2, windowHeight/2, catMouse.width/10, catMouse.height/10);
+    moveCat(2);
 }  else if (dist(mouseX, mouseY, locX[3], locY[3]) < 10) {
-     image(catMouse, windowWidth/2, windowHeight/2, catMouse.width/10, catMouse.height/10);
+    moveCat(3);
 }  else if (dist(mouseX, mouseY, locX[4], locY[4]) < 10) {
-     image(catMouse, windowWidth/2, windowHeight/2, catMouse.width/10, catMouse.height/10);
+    moveCat(4);
 }  else if (dist(mouseX, mouseY, locX[5], locY[5]) < 10) {
-     image(catMouse, windowWidth/2, windowHeight/2, catMouse.width/10, catMouse.height/10);
+    moveCat(5);
 } else {
-   image(cat, windowWidth/2, windowHeight/2, cat.width/10, cat.height/10);
+   image(cat, catLoc[0], catLoc[1], cat.width/10, cat.height/10);
 }
 
 // draws locations
@@ -136,11 +135,20 @@ if (dist(mouseX, mouseY, locX[0], locY[0]) < 10) {
 
 }
 
-function drawPath(start, end) {
-if (start > end) {
-  start - (start-end);
-}
-
+// function that allows the cat to moveCat
+// i represents the co-ordinate of index of the destination in locX & locY
+function moveCat(i) {
+    if (catLoc[0] > locX[i] && catLoc[1] > locY[i]) {
+       image(catMouse, catLoc[0]--, catLoc[1]--, catMouse.width/10, catMouse.height/10);
+    } else if (catLoc[0] < locX[i] && catLoc[1] > locY[i]) {
+      image(catMouse, catLoc[0]++, catLoc[1]--, catMouse.width/10, catMouse.height/10);
+    } else if (catLoc[0] < locX[i] && catLoc[1] < locY[i]) {
+      image(catMouse, catLoc[0]++, catLoc[1]++, catMouse.width/10, catMouse.height/10);
+    } else if (catLoc[0] > locX[i] && catLoc[1] < locY[i]) {
+      image(catMouse, catLoc[0]--, catLoc[1]++, catMouse.width/10, catMouse.height/10);
+    } else {
+      image(cat, catLoc[0], catLoc[1], cat.width/10, cat.height/10);
+    }
 }
 
 // fills in ellipse on map if you click on the point
