@@ -107,8 +107,6 @@ function draw() {
 // why don't you have an array that stores the location of the cat instead?
 // needs to account for things like other arrays and all that jazz
 
-
-
 if (dist(mouseX, mouseY, locX[0], locY[0]) < 10) {
     moveCat(0);
 } else if (dist(mouseX, mouseY, locX[1], locY[1]) < 10) {
@@ -164,6 +162,34 @@ function distance(x, y) {
     drawCloud(locX[i]-60, locY[i]-200, 0.5);
   }
 }
+}
+
+// draws a sad cloud at coordinates (x, y)
+function drawSadCloud(x, y, scale) {
+
+  noStroke();
+  translate(x, y);
+
+    drawRain(80, 60+(frameCount*0.5%60));
+    drawRain(60, 30+(frameCount%60));
+    drawRain(100, 50+(frameCount*1.2%60));
+
+  fill("#999da3");
+
+  ellipse(100*scale, 100*scale, 90*scale);
+  ellipse(125*scale, 50*scale, 80*scale);
+  ellipse(175*scale, 50*scale, 80*scale);
+  ellipse(200*scale, 90*scale, 90*scale);
+  ellipse(150*scale, 110*scale, 60*scale);
+  fill(0,0,0);
+  ellipse(100*scale, 100*scale, 12*scale);
+  ellipse(150*scale, 100*scale, 12*scale);
+  fill("#d86a8b");
+  arc(125*scale, 115*scale, 10*scale, 10*scale, PI, TWO_PI);
+  fill(0, 0, 0);
+
+  translate(-x, -y);
+
 }
 
 // draws a cloud at coordinates (x, y)
