@@ -134,8 +134,9 @@ if (dist(mouseX, mouseY, locX[0], locY[0]) < 10) {
 // highlights location if clicked
    distance(mouseX, mouseY);
 
-}
+drawLighting(100, 100, 0.2);
 
+}
 // function that allows the cat to moveCat
 // i represents the co-ordinate of index of the destination in locX & locY
 
@@ -162,7 +163,7 @@ function distance(x, y) {
     fill("#d86a8b");
     ellipse(locX[i], locY[i], 20);
     fill(0,0,0);
-    drawCloud(locX[i]-60, locY[i]-200, 0.5);
+    drawSadCloud(locX[i]-60, locY[i]-200, 0.5);
   }
 }
 }
@@ -173,9 +174,11 @@ function drawSadCloud(x, y, scale) {
   noStroke();
   translate(x, y);
 
-    drawRain(80, 60+(frameCount*0.5%60));
-    drawRain(60, 30+(frameCount%60));
-    drawRain(100, 50+(frameCount*1.2%60));
+    drawPeltingRain(70, 60+frameCount*6*60);
+    drawPeltingRain(90, 50+frameCount*5%60);
+    drawPeltingRain(80, 60+(frameCount*2%60));
+    drawPeltingRain(60, 30+(frameCount*3%60));
+    drawPeltingRain(100, 50+(frameCount*4%60));
 
   fill("#999da3");
 
@@ -187,26 +190,39 @@ function drawSadCloud(x, y, scale) {
   fill(0,0,0);
   ellipse(100*scale, 100*scale, 12*scale);
   ellipse(150*scale, 100*scale, 12*scale);
-  fill("#d86a8b");
+  fill("#a30303");
   arc(125*scale, 115*scale, 10*scale, 10*scale, PI, TWO_PI);
   fill(0, 0, 0);
 
   translate(-x, -y);
 }
 
+// draws lighting
+function drawLighting(x, y, scale) {
 
+  translate(x, y);
+  noStroke();
+  fill("#ffe4a0");
+  triangle(-50*scale, 0*scale, -30*scale, 100*scale, 40*scale, 100*scale);
+  triangle(10*scale, 100*scale, 80*scale, 100*scale, 100*scale, 200*scale);
+  fill(0,0,0);
+  translate(-x, -y);
+
+}
+
+
+
+// draws faster, pelting rain
+function drawPeltingRain(x, y) {
+  translate(x, y);
+  fill("#000556");
+  rect(0, 0, 1, 15);
+  translate(-x, -y);
+  fill(0,0,0);
+}
 
 // draws a cloud at coordinates (x, y)
 function drawCloud(x, y, scale) {
-
-  noStroke();
-  translate(x, y);
-
-  drawRain(80, 60+(frameCount*0.5%60));
-  drawRain(60, 30+(frameCount%60));
-  drawRain(100, 50+(frameCount*1.2%60));
-
-  fill("#ffffff");
 
   ellipse(100*scale, 100*scale, 90*scale);
   ellipse(125*scale, 50*scale, 80*scale);
@@ -221,6 +237,29 @@ function drawCloud(x, y, scale) {
   fill(0, 0, 0);
 
   translate(-x, -y);
+}
+
+// draws a storm cloud at coordinates (x, y)
+function drawStormClouds(x, y) {
+  translate(x,y);
+
+  drawLighting();
+  drawLighting();
+
+  ellipse(100*scale, 100*scale, 90*scale);
+  ellipse(125*scale, 50*scale, 80*scale);
+  ellipse(175*scale, 50*scale, 80*scale);
+  ellipse(200*scale, 90*scale, 90*scale);
+  ellipse(150*scale, 110*scale, 60*scale);
+  fill(0,0,0);
+  ellipse(100*scale, 100*scale, 12*scale);
+  ellipse(150*scale, 100*scale, 12*scale);
+  fill("#d86a8b");
+  arc(125*scale, 115*scale, 10*scale, 10*scale, PI, TWO_PI);
+  fill(0, 0, 0);
+
+  translate(-x,-y);
+
 }
 
 // draws rain at coordinate(x, y)
