@@ -138,17 +138,20 @@ if (dist(mouseX, mouseY, locX[0], locY[0]) < 10) {
 
 // function that allows the cat to moveCat
 // i represents the co-ordinate of index of the destination in locX & locY
+
+// TODO: make them move in the correct ratio using trignometry
+// should solve the bug of never becoming the right cat
 function moveCat(i) {
-    if (catLoc[0] > locX[i] && catLoc[1] > locY[i]) {
-       image(catMouse, catLoc[0]--, catLoc[1]--, catMouse.width/10, catMouse.height/10);
-    } else if (catLoc[0] < locX[i] && catLoc[1] > locY[i]) {
-      image(catMouse, catLoc[0]++, catLoc[1]--, catMouse.width/10, catMouse.height/10);
-    } else if (catLoc[0] < locX[i] && catLoc[1] < locY[i]) {
-      image(catMouse, catLoc[0]++, catLoc[1]++, catMouse.width/10, catMouse.height/10);
-    } else if (catLoc[0] > locX[i] && catLoc[1] < locY[i]) {
-      image(catMouse, catLoc[0]--, catLoc[1]++, catMouse.width/10, catMouse.height/10);
-    } else {
+    if (catLoc[0] == locX[i] && catLoc[1] == locY[i]) {
       image(cat, catLoc[0], catLoc[1], cat.width/10, cat.height/10);
+    } else if (catLoc[0] >= locX[i] && catLoc[1] >= locY[i]) {
+       image(catMouse, catLoc[0]--, catLoc[1]--, catMouse.width/10, catMouse.height/10);
+    } else if (catLoc[0] <= locX[i] && catLoc[1] >= locY[i]) {
+      image(catMouse, catLoc[0]++, catLoc[1]--, catMouse.width/10, catMouse.height/10);
+    } else if (catLoc[0] <= locX[i] && catLoc[1] <= locY[i]) {
+      image(catMouse, catLoc[0]++, catLoc[1]++, catMouse.width/10, catMouse.height/10);
+    } else if (catLoc[0] >= locX[i] && catLoc[1] <= locY[i]) {
+      image(catMouse, catLoc[0]--, catLoc[1]++, catMouse.width/10, catMouse.height/10);
     }
 }
 
@@ -189,8 +192,9 @@ function drawSadCloud(x, y, scale) {
   fill(0, 0, 0);
 
   translate(-x, -y);
-
 }
+
+
 
 // draws a cloud at coordinates (x, y)
 function drawCloud(x, y, scale) {
