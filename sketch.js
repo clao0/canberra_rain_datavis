@@ -163,7 +163,7 @@ function distance(x, y) {
     fill("#d86a8b");
     ellipse(locX[i], locY[i], 20);
     fill(0,0,0);
-    drawSadCloud(locX[i]-60, locY[i]-200, 0.5);
+    drawStormCloud(locX[i]-60, locY[i]-200, 0.5);
   }
 }
 }
@@ -202,7 +202,7 @@ function drawLighting(x, y, scale) {
 
   translate(x, y);
   noStroke();
-  fill("#ffe4a0");
+  fill("#fcd167");
   triangle(-50*scale, 0*scale, -30*scale, 100*scale, 40*scale, 100*scale);
   triangle(10*scale, 100*scale, 80*scale, 100*scale, 100*scale, 200*scale);
   fill(0,0,0);
@@ -224,6 +224,14 @@ function drawPeltingRain(x, y) {
 // draws a cloud at coordinates (x, y)
 function drawCloud(x, y, scale) {
 
+  translate(x, y);
+
+  drawRain(70, 60+frameCount*0.8%50);
+  drawRain(90, 50+frameCount*1.2%40);
+  drawRain(50, 50+frameCount*0.7%60);
+
+  fill("#ffffff");
+
   ellipse(100*scale, 100*scale, 90*scale);
   ellipse(125*scale, 50*scale, 80*scale);
   ellipse(175*scale, 50*scale, 80*scale);
@@ -239,12 +247,29 @@ function drawCloud(x, y, scale) {
   translate(-x, -y);
 }
 
+function drawHorizontalRain(x, y) {
+  translate(x, y);
+  stroke("#0e3677");
+  line(0,0, 5, 5);
+  translate(-x, -y);
+
+}
+
 // draws a storm cloud at coordinates (x, y)
-function drawStormClouds(x, y) {
+function drawStormCloud(x, y, scale) {
   translate(x,y);
 
-  drawLighting();
-  drawLighting();
+
+  drawHorizontalRain(70+frameCount*6%60, 60+frameCount*6%60);
+  drawHorizontalRain(90+frameCount*5%60, 50+frameCount*5%60);
+  drawHorizontalRain(80+frameCount*2%60, 60+(frameCount*2%60));
+  drawHorizontalRain(60+frameCount*3%60, 30+(frameCount*3%60));
+  drawHorizontalRain(100+frameCount*4%60, 50+(frameCount*4%60));
+
+      drawLighting(50+frameCount*2%50, 50+frameCount*2%60, 0.2);
+      drawLighting(90+frameCount*2%50, 50+frameCount*1.5%60, 0.2);
+
+  fill("#636262");
 
   ellipse(100*scale, 100*scale, 90*scale);
   ellipse(125*scale, 50*scale, 80*scale);
@@ -254,7 +279,7 @@ function drawStormClouds(x, y) {
   fill(0,0,0);
   ellipse(100*scale, 100*scale, 12*scale);
   ellipse(150*scale, 100*scale, 12*scale);
-  fill("#d86a8b");
+  fill("#890101");
   arc(125*scale, 115*scale, 10*scale, 10*scale, PI, TWO_PI);
   fill(0, 0, 0);
 
