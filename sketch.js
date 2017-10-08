@@ -39,20 +39,10 @@ var time;
 // starting position of the cat
 var startPos;
 
-// paths to destinations
-var path0;
-var path1;
-var path3;
-var path4;
-var path5;
-
-// counts the distance moved towards each location
-var pCount0;
-var pCount1;
-var pCount2;
-var pCount3;
-var pCount4;
-var pCount5;
+// rainfalls for various years
+var rainfall1990;
+var rainfall2009;
+var rainfall2014;
 
 // various sfx
 
@@ -93,6 +83,14 @@ function setup() {
     locNames = ["Parliament House", "Botanic Gardens", "Ainslie",
   "Aranda", "Queanbeyan", "Torrens"];
 
+// if rain is from 40-46, normal rain cloud
+// if rain is from 47-54, sad rain cloud
+// if rain is from 55-60, storm rain cloud
+
+   rainfall1990 = [53.06, 59.88, 56.13, 57.53, 45.67, 54.82];
+   rainfall2009 = [40.55, 44.38, 43.21, 40.45, 40.12, 40.6];
+   rainfall2014 = [40.55, 45.05, 52.83, 57.53, 48.12, 60.9];
+
     altitudes = [585, 585, 585, 630, 580, 653];
 
     catMoving = false;
@@ -102,29 +100,21 @@ function setup() {
     catLoc = [windowWidth/2, windowHeight/2];
 
 
+   // maybe just calculate the average separately/manually??
 }
 
 function draw() {
     // your "draw loop" code goes here
 
     // for blended backgrounds, rects, slightly different colours
-
-// blue blackground (192, 234, 249)
-// stormy grey background (178, 184, 186)
-//
-  blueBackground(75, 126, 142);
+    background("#ffffff");
+ distance(mouseX, mouseY);
 
   // background(0,0,0);
   // fill("#c0eaf9");
   // rect(rowWidth, colHeight*2, windowWidth-rowWidth*2, windowHeight-colHeight*4);
   // fill(0,0,0)
 
-
-
-
-
-// why don't you have an array that stores the location of the cat instead?
-// needs to account for things like other arrays and all that jazz
 
 if (dist(mouseX, mouseY, locX[0], locY[0]) < 10) {
     moveCat(0);
@@ -151,13 +141,11 @@ if (dist(mouseX, mouseY, locX[0], locY[0]) < 10) {
    }
 
 // highlights location if clicked
-   distance(mouseX, mouseY);
 
-drawBorder(1,1);
 
 }
 
-function blueBackground(r, g, b) {
+function backgroundBlend(r, g, b) {
   background(r, g, b);
   for (var i = 0; i < colNum*2; i++) {
     noStroke();
@@ -167,7 +155,7 @@ function blueBackground(r, g, b) {
   fill(0,0,0);
 
   // fill(0,0,0);
-};
+}
 
 
 // function that allows the cat to moveCat
@@ -193,11 +181,31 @@ function moveCat(i) {
 function distance(x, y) {
   for (var i = 0; i < 6; i++) {
   if (dist(x, y, locX[i], locY[i]) < 10) {
-    fill("#d86a8b");
-    ellipse(locX[i], locY[i], 20);
-    fill(0,0,0);
-    drawStormCloud(locX[i]-60, locY[i]-200, 0.5);
-  }
+
+    if (rainfall1990[i] < 47) {
+      backgroundBlend(192, 234, 249);
+      drawCloud(locX[i] - 60, locY[i] - 200, 0.5);
+      fill("#d86a8b");
+      ellipse(locX[i], locY[i], 20);
+    } else if (rainfall1990[i] < 54) {
+      backgroundBlend(178, 184, 186);
+      drawSadCloud(locX[i] - 60, locY[i] - 200, 0.5);
+      fill("#d86a8b");
+      ellipse(locX[i], locY[i], 20);
+    } else {
+      backgroundBlend(75, 126, 142);
+      drawStormCloud(locX[i]-60, locY[i]-200, 0.5);
+      fill("#d86a8b");
+      ellipse(locX[i], locY[i], 20);
+
+    }
+}
+
+// blue blackground (192, 234, 249)
+// stormy grey background (178, 184, 186)
+// dark pelting rain background (75, 126, 142)
+
+
 }
 }
 

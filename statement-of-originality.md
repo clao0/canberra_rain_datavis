@@ -28,3 +28,8 @@ licence: Open Font Licence (displayed in link above)
 By Mike Koenig on soundbible
 (http://soundbible.com/2011-Rain-Background.html)
 licence: Creative Commons Attribution 3.0
+
+- Thunder sfx
+By Mike Koenig on soundbible
+(http://soundbible.com/1907-Thunder.html)
+licence: Creative Commons Attribution 3.0
