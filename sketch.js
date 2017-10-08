@@ -109,6 +109,10 @@ function setup() {
   torrens = false;
   queanbeyan = false;
 
+  backgroundRain = false;
+  backgroundPelting = false;
+  backgroundStorm = false;
+
 // if rain is from 40-46, normal rain cloud
 // if rain is from 47-54, sad rain cloud
 // if rain is from 55-60, storm rain cloud
@@ -130,7 +134,16 @@ function draw() {
     // your "draw loop" code goes here
 
       changeYears();
+
+      if (backgroundRain) {
+        backgroundBlend(192, 234, 249);
+      } else if (backgroundPelting) {
+        backgroundBlend(178, 184, 186);
+      } else if (backgroundStorm) {
+        backgroundBlend(75, 126, 142);
+      } else {
       background("#676a6d");
+    }
 
       for (var i = 0; i <= colNum; i++) {
         noStroke();
@@ -138,8 +151,8 @@ function draw() {
         ellipse(i*rowWidth, 10, 120);
       }
 
- distance(mouseX, mouseY);
- startClouds();
+
+startClouds();
 
 drawYears();
 
@@ -166,6 +179,8 @@ if (dist(mouseX, mouseY, locX[0], locY[0]) < 10) {
      text(locNames[i], locX[i], locY[i]-40);
      text("Elevation:"+altitudes[i]+" m", locX[i], locY[i]-20);
    }
+
+distance(mouseX, mouseY);
 
 }
 
@@ -211,17 +226,34 @@ function changeYears() {
     year1990 = true;
     year2009 = false;
     year2014 = false;
+    reset();
   } else if (mouseX >= windowWidth/2-25 && mouseX <= windowWidth/2+35
   && mouseY >= 5 && mouseY <= 55) {
     year1990 = false;
     year2009 = true;
     year2014 = false;
+    reset();
   } else if (mouseX >= windowWidth*3/4-25 && mouseX <= windowWidth*3/4+35
   && mouseY >= 5 && mouseY <= 55) {
     year1990 = false;
     year2009 = false;
     year2014 = true;
+    reset();
   }
+
+}
+
+// resets to default state
+function reset() {
+  backgroundRain = false;
+  backgroundPelting = false;
+  backgroundStorm = false;
+  parliament = false;
+  botanic = false;
+  ainslie = false;
+  queanbeyan = false;
+  aranda = false;
+  torrens = false;
 }
 
 function backgroundBlend(r, g, b) {
@@ -310,51 +342,69 @@ function startClouds() {
 function drawStuff(i) {
   if (year1990) {
       if (rainfall1990[i] < 47) {
-        backgroundBlend(192, 234, 249);
+        backgroundRain = true;
+        backgroundPelting = false;
+        backgroundStorm = false;
         drawCloud(locX[i] - 60, locY[i] - 200, 0.5);
         fill("#d86a8b");
         ellipse(locX[i], locY[i], 20);
       } else if (rainfall1990[i] < 54) {
-        backgroundBlend(178, 184, 186);
+        backgroundRain = false;
+        backgroundPelting = true;
+        backgroundStorm = false;
         drawSadCloud(locX[i] - 60, locY[i] - 200, 0.5);
         fill("#d86a8b");
         ellipse(locX[i], locY[i], 20);
       } else {
-        backgroundBlend(75, 126, 142);
+        backgroundRain = false;
+        backgroundPelting = false;
+        backgroundStorm = true;
         drawStormCloud(locX[i]-60, locY[i]-200, 0.5);
         fill("#d86a8b");
         ellipse(locX[i], locY[i], 20);
       }
     } else if (year2009) {
       if (rainfall2009[i] < 47) {
-        backgroundBlend(192, 234, 249);
+        backgroundRain = true;
+        backgroundPelting = false;
+        backgroundStorm = false;
         drawCloud(locX[i] - 60, locY[i] - 200, 0.5);
         fill("#d86a8b");
         ellipse(locX[i], locY[i], 20);
       } else if (rainfall2009[i] < 54) {
-        backgroundBlend(178, 184, 186);
+        backgroundRain = false;
+        backgroundPelting = true;
+        backgroundStorm = false;
         drawSadCloud(locX[i] - 60, locY[i] - 200, 0.5);
         fill("#d86a8b");
         ellipse(locX[i], locY[i], 20);
       } else {
-        backgroundBlend(75, 126, 142);
+        backgroundRain = false;
+        backgroundPelting = false;
+        backgroundStorm = true;
         drawStormCloud(locX[i]-60, locY[i]-200, 0.5);
         fill("#d86a8b");
         ellipse(locX[i], locY[i], 20);
       }
     } else {
       if (rainfall2014[i] < 47) {
-        backgroundBlend(192, 234, 249);
+        backgroundRain = true;
+        backgroundPelting = false;
+        backgroundStorm = false;
         drawCloud(locX[i] - 60, locY[i] - 200, 0.5);
         fill("#d86a8b");
         ellipse(locX[i], locY[i], 20);
       } else if (rainfall2014[i] < 54) {
-        backgroundBlend(178, 184, 186);
+        backgroundRain = false;
+        backgroundPelting = true;
+        backgroundStorm = false;
         drawSadCloud(locX[i] - 60, locY[i] - 200, 0.5);
         fill("#d86a8b");
         ellipse(locX[i], locY[i], 20);
       } else {
-        backgroundBlend(75, 126, 142);
+        backgroundRain = false;
+        backgroundPelting = false;
+        backgroundStorm = true;
         drawStormCloud(locX[i]-60, locY[i]-200, 0.5);
         fill("#d86a8b");
         ellipse(locX[i], locY[i], 20);
