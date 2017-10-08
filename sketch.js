@@ -36,27 +36,32 @@ var colNum;
 // amatic font
 var amatic;
 
-// counts time in a recursive manner
-var time;
-
-// starting position of the cat
-var startPos;
-
 // rainfalls for various years
 var rainfall1990;
 var rainfall2009;
 var rainfall2014;
 
 // keeps track of what year is selected
-var year;
 var year1990;
 var year2009;
 var year2014;
 
 // various sfx
-
 var rainsfx;
 var thundersfx;
+
+// keeps track of backgrounds
+var backgroundRain;
+var backgroundPelting;
+var backgroundStorm;
+
+// keeps track of when locations have been clicked
+var parliament;
+var ainslie;
+var aranda;
+var torrens;
+var botanic;
+var queanbeyan;
 
 // stores current location of the cat
 var catLoc;
@@ -97,6 +102,13 @@ function setup() {
   year2009 = false;
   year2014 = true;
 
+  parliament = false;
+  aranda = false;
+  ainslie = false;
+  botanic = false;
+  torrens = false;
+  queanbeyan = false;
+
 // if rain is from 40-46, normal rain cloud
 // if rain is from 47-54, sad rain cloud
 // if rain is from 55-60, storm rain cloud
@@ -117,7 +129,7 @@ function setup() {
 function draw() {
     // your "draw loop" code goes here
 
-changeYears();
+      changeYears();
       background("#676a6d");
 
       for (var i = 0; i <= colNum; i++) {
@@ -127,6 +139,7 @@ changeYears();
       }
 
  distance(mouseX, mouseY);
+ startClouds();
 
 drawYears();
 
@@ -148,27 +161,48 @@ if (dist(mouseX, mouseY, locX[0], locY[0]) < 10) {
 
 // draws locations
    for (var i = 0; i < 6; i++) {
+     textFont(amatic, 20);
      ellipse(locX[i], locY[i], 20);
      text(locNames[i], locX[i], locY[i]-40);
      text("Elevation:"+altitudes[i]+" m", locX[i], locY[i]-20);
-     textFont(amatic, 20);
    }
-
-// highlights location if clicked
-
 
 }
 
 function drawYears() {
-
-   fill(0,0,0);
-    textFont(amatic, 40);
-   image(border, windowWidth/4-25, 5, 60, 50);
-   text("1990", windowWidth/4-20, 40);
-    image(border, windowWidth/2-25, 5, 60, 50);
-   text("2009", windowWidth/2-20, 40);
-    image(border, windowWidth*3/4-25, 5, 60, 50);
-   text("2014", windowWidth*3/4-20, 40);
+if (year1990) {
+  fill("#3599b7");
+   textFont(amatic, 40);
+  image(border, windowWidth/4-25, 5, 60, 50);
+  text("1990", windowWidth/4-20, 40);
+  fill(0,0,0);
+   image(border, windowWidth/2-25, 5, 60, 50);
+  text("2009", windowWidth/2-20, 40);
+   image(border, windowWidth*3/4-25, 5, 60, 50);
+  text("2014", windowWidth*3/4-20, 40);
+} else if (year2009) {
+  fill(0,0,0);
+   textFont(amatic, 40);
+  image(border, windowWidth/4-25, 5, 60, 50);
+  text("1990", windowWidth/4-20, 40);
+  fill("#3599b7");
+   image(border, windowWidth/2-25, 5, 60, 50);
+  text("2009", windowWidth/2-20, 40);
+  fill(0,0,0);
+   image(border, windowWidth*3/4-25, 5, 60, 50);
+  text("2014", windowWidth*3/4-20, 40);
+} else {
+  fill(0,0,0);
+   textFont(amatic, 40);
+  image(border, windowWidth/4-25, 5, 60, 50);
+  text("1990", windowWidth/4-20, 40);
+   image(border, windowWidth/2-25, 5, 60, 50);
+  text("2009", windowWidth/2-20, 40);
+   image(border, windowWidth*3/4-25, 5, 60, 50);
+   fill("#3599b7");
+  text("2014", windowWidth*3/4-20, 40);
+  fill(0,0,0);
+}
 }
 
 function changeYears() {
@@ -196,10 +230,16 @@ function backgroundBlend(r, g, b) {
     noStroke();
     fill(r-=0.1, g-=0.9, b-=1);
     rect(0, colHeight*i/2, windowWidth, colHeight/2);
-  }
-  fill(0,0,0);
 
-  // fill(0,0,0);
+  }
+
+  for (var i = 0; i <= colNum; i++) {
+    noStroke();
+    fill("#ffffff");
+    ellipse(i*rowWidth, 10, 120);
+  }
+
+  fill(0,0,0);
 }
 
 
@@ -224,61 +264,102 @@ function moveCat(i) {
 
 // fills in ellipse on map if you click on the point
 function distance(x, y) {
-  for (var i = 0; i < 6; i++) {
-  if (dist(x, y, locX[i], locY[i]) < 10) {
 
-if (year1990) {
-    if (rainfall1990[i] < 47) {
-      backgroundBlend(192, 234, 249);
-      drawCloud(locX[i] - 60, locY[i] - 200, 0.5);
-      fill("#d86a8b");
-      ellipse(locX[i], locY[i], 20);
-    } else if (rainfall1990[i] < 54) {
-      backgroundBlend(178, 184, 186);
-      drawSadCloud(locX[i] - 60, locY[i] - 200, 0.5);
-      fill("#d86a8b");
-      ellipse(locX[i], locY[i], 20);
-    } else {
-      backgroundBlend(75, 126, 142);
-      drawStormCloud(locX[i]-60, locY[i]-200, 0.5);
-      fill("#d86a8b");
-      ellipse(locX[i], locY[i], 20);
-    }
-  } else if (year2009) {
-    if (rainfall2009[i] < 47) {
-      backgroundBlend(192, 234, 249);
-      drawCloud(locX[i] - 60, locY[i] - 200, 0.5);
-      fill("#d86a8b");
-      ellipse(locX[i], locY[i], 20);
-    } else if (rainfall2009[i] < 54) {
-      backgroundBlend(178, 184, 186);
-      drawSadCloud(locX[i] - 60, locY[i] - 200, 0.5);
-      fill("#d86a8b");
-      ellipse(locX[i], locY[i], 20);
-    } else {
-      backgroundBlend(75, 126, 142);
-      drawStormCloud(locX[i]-60, locY[i]-200, 0.5);
-      fill("#d86a8b");
-      ellipse(locX[i], locY[i], 20);
-    }
-  } else {
-    if (rainfall2014[i] < 47) {
-      backgroundBlend(192, 234, 249);
-      drawCloud(locX[i] - 60, locY[i] - 200, 0.5);
-      fill("#d86a8b");
-      ellipse(locX[i], locY[i], 20);
-    } else if (rainfall2014[i] < 54) {
-      backgroundBlend(178, 184, 186);
-      drawSadCloud(locX[i] - 60, locY[i] - 200, 0.5);
-      fill("#d86a8b");
-      ellipse(locX[i], locY[i], 20);
-    } else {
-      backgroundBlend(75, 126, 142);
-      drawStormCloud(locX[i]-60, locY[i]-200, 0.5);
-      fill("#d86a8b");
-      ellipse(locX[i], locY[i], 20);
-    }
+if (dist(x, y, locX[0], locY[0] < 10)) {
+  parliament = true;
+} else if (dist(x, y, locX[1], locY[1] < 10)) {
+   botanic = true;
+} else if (dist(x, y, locX[2], locY[2] < 10)) {
+   ainslie = true;
+} else if (dist(x, y, locX[3], locY[3] < 10)) {
+   aranda = true;
+} else if (dist(x, y, locX[4], locY[4] < 10)) {
+   queanbeyan = true;
+} else if (dist(x, y, locX[5], locY[5] < 10)) {
+   torrens = true;
+}
+
+}
+
+function startClouds() {
+  if (parliament) {
+    drawStuff(0);
   }
+
+  if (botanic) {
+    drawStuff(1);
+  }
+
+  if (ainslie) {
+    drawStuff(2);
+  }
+
+  if (aranda) {
+    drawStuff(3);
+  }
+
+  if (queanbeyan) {
+    drawStuff(4);
+  }
+
+  if (torrens) {
+    drawStuff(5);
+  }
+}
+
+function drawStuff(i) {
+  if (year1990) {
+      if (rainfall1990[i] < 47) {
+        backgroundBlend(192, 234, 249);
+        drawCloud(locX[i] - 60, locY[i] - 200, 0.5);
+        fill("#d86a8b");
+        ellipse(locX[i], locY[i], 20);
+      } else if (rainfall1990[i] < 54) {
+        backgroundBlend(178, 184, 186);
+        drawSadCloud(locX[i] - 60, locY[i] - 200, 0.5);
+        fill("#d86a8b");
+        ellipse(locX[i], locY[i], 20);
+      } else {
+        backgroundBlend(75, 126, 142);
+        drawStormCloud(locX[i]-60, locY[i]-200, 0.5);
+        fill("#d86a8b");
+        ellipse(locX[i], locY[i], 20);
+      }
+    } else if (year2009) {
+      if (rainfall2009[i] < 47) {
+        backgroundBlend(192, 234, 249);
+        drawCloud(locX[i] - 60, locY[i] - 200, 0.5);
+        fill("#d86a8b");
+        ellipse(locX[i], locY[i], 20);
+      } else if (rainfall2009[i] < 54) {
+        backgroundBlend(178, 184, 186);
+        drawSadCloud(locX[i] - 60, locY[i] - 200, 0.5);
+        fill("#d86a8b");
+        ellipse(locX[i], locY[i], 20);
+      } else {
+        backgroundBlend(75, 126, 142);
+        drawStormCloud(locX[i]-60, locY[i]-200, 0.5);
+        fill("#d86a8b");
+        ellipse(locX[i], locY[i], 20);
+      }
+    } else {
+      if (rainfall2014[i] < 47) {
+        backgroundBlend(192, 234, 249);
+        drawCloud(locX[i] - 60, locY[i] - 200, 0.5);
+        fill("#d86a8b");
+        ellipse(locX[i], locY[i], 20);
+      } else if (rainfall2014[i] < 54) {
+        backgroundBlend(178, 184, 186);
+        drawSadCloud(locX[i] - 60, locY[i] - 200, 0.5);
+        fill("#d86a8b");
+        ellipse(locX[i], locY[i], 20);
+      } else {
+        backgroundBlend(75, 126, 142);
+        drawStormCloud(locX[i]-60, locY[i]-200, 0.5);
+        fill("#d86a8b");
+        ellipse(locX[i], locY[i], 20);
+      }
+}
 }
 
 // blue blackground (192, 234, 249)
@@ -286,25 +367,6 @@ if (year1990) {
 // dark pelting rain background (75, 126, 142)
 
 
-}
-}
-
-
-function drawBorder(x, y) {
-  for (var i = 0; i <= rowWidth*x; i++) {
-    fill(0,0,0);
-  }
-
-  for (var i = 0; i <= colHeight*y; i++) {
-    fill(0,0,0);
-  }
-
-}
-
-// draws a timeline with selected years from the dataset
-function drawTimeline() {
-  rect();
-}
 
 
 // draws a sad cloud at coordinates (x, y)
