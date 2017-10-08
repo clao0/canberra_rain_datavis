@@ -265,17 +265,17 @@ function moveCat(i) {
 // fills in ellipse on map if you click on the point
 function distance(x, y) {
 
-if (dist(x, y, locX[0], locY[0] < 10)) {
+if (dist(x, y, locX[0], locY[0]) < 10) {
   parliament = true;
-} else if (dist(x, y, locX[1], locY[1] < 10)) {
+} else if (dist(x, y, locX[1], locY[1]) < 10) {
    botanic = true;
-} else if (dist(x, y, locX[2], locY[2] < 10)) {
+} else if (dist(x, y, locX[2], locY[2]) < 10) {
    ainslie = true;
-} else if (dist(x, y, locX[3], locY[3] < 10)) {
+} else if (dist(x, y, locX[3], locY[3]) < 10) {
    aranda = true;
-} else if (dist(x, y, locX[4], locY[4] < 10)) {
+} else if (dist(x, y, locX[4], locY[4]) < 10) {
    queanbeyan = true;
-} else if (dist(x, y, locX[5], locY[5] < 10)) {
+} else if (dist(x, y, locX[5], locY[5]) < 10) {
    torrens = true;
 }
 
