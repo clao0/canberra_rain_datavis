@@ -23,6 +23,10 @@ licence: CC0 Creative Commons (displayed in the link above)
 by [b0red on Pixabay] (https://pixabay.com/en/clock-alarm-clock-time-alarm-2694493/)
 licence: CC0 Creative Commons (displayed in link above)
 
+- frame image:
+by [b0red on Pixabay] (https://pixabay.com/en/frame-border-trim-decoration-retro-2577109/)
+licence: CC0 Creative Commons (displayed in link above)
+
 - AmaticSC-Regular font
 by [Vernon Adams on Google Fonts]
 (https://fonts.google.com/specimen/Amatic+SC)

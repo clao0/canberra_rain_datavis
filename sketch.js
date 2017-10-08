@@ -93,6 +93,10 @@ function setup() {
     locNames = ["Parliament House", "Botanic Gardens", "Ainslie",
   "Aranda", "Queanbeyan", "Torrens"];
 
+  year1990 = false;
+  year2009 = false;
+  year2014 = true;
+
 // if rain is from 40-46, normal rain cloud
 // if rain is from 47-54, sad rain cloud
 // if rain is from 55-60, storm rain cloud
@@ -113,6 +117,7 @@ function setup() {
 function draw() {
     // your "draw loop" code goes here
 
+changeYears();
       background("#676a6d");
 
       for (var i = 0; i <= colNum; i++) {
@@ -122,19 +127,8 @@ function draw() {
       }
 
  distance(mouseX, mouseY);
- //
- // image(clock, windowWidth/4-10, 5, clock.width/30, clock.height/30);
- // image(clock, windowWidth/2-10, 5, clock.width/30, clock.height/30);
- // image(clock, windowWidth*3/4-10, 5, clock.width/30, clock.height/30);
- fill(0,0,0);
-  textFont(amatic, 40);
- image(border, windowWidth/4-25, 5, 60, 50);
- text("1990", windowWidth/4-20, 40);
-  image(border, windowWidth/2-25, 5, 60, 50);
- text("2009", windowWidth/2-20, 40);
-  image(border, windowWidth*3/4-25, 5, 60, 50);
- text("2017", windowWidth*3/4-20, 40);
 
+drawYears();
 
 if (dist(mouseX, mouseY, locX[0], locY[0]) < 10) {
     moveCat(0);
@@ -163,6 +157,37 @@ if (dist(mouseX, mouseY, locX[0], locY[0]) < 10) {
 // highlights location if clicked
 
 
+}
+
+function drawYears() {
+
+   fill(0,0,0);
+    textFont(amatic, 40);
+   image(border, windowWidth/4-25, 5, 60, 50);
+   text("1990", windowWidth/4-20, 40);
+    image(border, windowWidth/2-25, 5, 60, 50);
+   text("2009", windowWidth/2-20, 40);
+    image(border, windowWidth*3/4-25, 5, 60, 50);
+   text("2014", windowWidth*3/4-20, 40);
+}
+
+function changeYears() {
+  if (mouseX >= windowWidth/4-25 && mouseX <= windowWidth/4+35
+  && mouseY >= 5 && mouseY <= 55) {
+    year1990 = true;
+    year2009 = false;
+    year2014 = false;
+  } else if (mouseX >= windowWidth/2-25 && mouseX <= windowWidth/2+35
+  && mouseY >= 5 && mouseY <= 55) {
+    year1990 = false;
+    year2009 = true;
+    year2014 = false;
+  } else if (mouseX >= windowWidth*3/4-25 && mouseX <= windowWidth*3/4+35
+  && mouseY >= 5 && mouseY <= 55) {
+    year1990 = false;
+    year2009 = false;
+    year2014 = true;
+  }
 }
 
 function backgroundBlend(r, g, b) {
@@ -202,6 +227,7 @@ function distance(x, y) {
   for (var i = 0; i < 6; i++) {
   if (dist(x, y, locX[i], locY[i]) < 10) {
 
+if (year1990) {
     if (rainfall1990[i] < 47) {
       backgroundBlend(192, 234, 249);
       drawCloud(locX[i] - 60, locY[i] - 200, 0.5);
@@ -217,8 +243,42 @@ function distance(x, y) {
       drawStormCloud(locX[i]-60, locY[i]-200, 0.5);
       fill("#d86a8b");
       ellipse(locX[i], locY[i], 20);
-
     }
+  } else if (year2009) {
+    if (rainfall2009[i] < 47) {
+      backgroundBlend(192, 234, 249);
+      drawCloud(locX[i] - 60, locY[i] - 200, 0.5);
+      fill("#d86a8b");
+      ellipse(locX[i], locY[i], 20);
+    } else if (rainfall2009[i] < 54) {
+      backgroundBlend(178, 184, 186);
+      drawSadCloud(locX[i] - 60, locY[i] - 200, 0.5);
+      fill("#d86a8b");
+      ellipse(locX[i], locY[i], 20);
+    } else {
+      backgroundBlend(75, 126, 142);
+      drawStormCloud(locX[i]-60, locY[i]-200, 0.5);
+      fill("#d86a8b");
+      ellipse(locX[i], locY[i], 20);
+    }
+  } else {
+    if (rainfall2014[i] < 47) {
+      backgroundBlend(192, 234, 249);
+      drawCloud(locX[i] - 60, locY[i] - 200, 0.5);
+      fill("#d86a8b");
+      ellipse(locX[i], locY[i], 20);
+    } else if (rainfall2014[i] < 54) {
+      backgroundBlend(178, 184, 186);
+      drawSadCloud(locX[i] - 60, locY[i] - 200, 0.5);
+      fill("#d86a8b");
+      ellipse(locX[i], locY[i], 20);
+    } else {
+      backgroundBlend(75, 126, 142);
+      drawStormCloud(locX[i]-60, locY[i]-200, 0.5);
+      fill("#d86a8b");
+      ellipse(locX[i], locY[i], 20);
+    }
+  }
 }
 
 // blue blackground (192, 234, 249)
