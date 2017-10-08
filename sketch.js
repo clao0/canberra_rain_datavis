@@ -6,6 +6,9 @@ var cat;
 // image of cat chasing mouse
 var catMouse;
 
+// border image
+var border;
+
 // boolean used to alternate between cat images
 var catMoving;
 
@@ -51,6 +54,11 @@ var pCount3;
 var pCount4;
 var pCount5;
 
+// various sfx
+
+var rainsfx;
+var thundersfx;
+
 // stores current location of the cat
 var catLoc;
 
@@ -58,6 +66,9 @@ function preload() {
     data = loadJSON("assets/rainfall.json");
     cat = loadImage("assets/cat.png");
     catMouse = loadImage("assets/catmouse.png");
+    border = loadImage("assets/border.png");
+    rainsfx = loadSound("assets/rain1.mp3");
+    thundersfx = loadSound("assets/thunder.mp3");
 }
 
 function setup() {
@@ -69,18 +80,15 @@ function setup() {
     data = Object.values(data);
     // any additional setup code goes here
     rowNum = 16;
-    colNum = 18;
+    colNum = 26;
     rowWidth = windowWidth/rowNum;
     colHeight = windowHeight/colNum;
 
     locX = [rowWidth*7, rowWidth*4, rowWidth*2, rowWidth*2, rowWidth*12,
     rowWidth*14];
 
-    locY = [colHeight*8, colHeight*6, colHeight*9, colHeight*2, colHeight*17,
-      colHeight*4];
-
-      // need to create more space
-      // don't want clouds to overshadow stuff
+    locY = [colHeight*14, colHeight*12, colHeight*15, colHeight*8, colHeight*23,
+      colHeight*10];
 
     locNames = ["Parliament House", "Botanic Gardens", "Ainslie",
   "Aranda", "Queanbeyan", "Torrens"];
@@ -93,16 +101,27 @@ function setup() {
 
     catLoc = [windowWidth/2, windowHeight/2];
 
-}
 
-// why isn't it committing?
-// adsafadskljflaskjdf
+}
 
 function draw() {
     // your "draw loop" code goes here
 
     // for blended backgrounds, rects, slightly different colours
-   background("#c0eaf9");
+
+// blue blackground (192, 234, 249)
+// stormy grey background (178, 184, 186)
+//
+  blueBackground(75, 126, 142);
+
+  // background(0,0,0);
+  // fill("#c0eaf9");
+  // rect(rowWidth, colHeight*2, windowWidth-rowWidth*2, windowHeight-colHeight*4);
+  // fill(0,0,0)
+
+
+
+
 
 // why don't you have an array that stores the location of the cat instead?
 // needs to account for things like other arrays and all that jazz
@@ -134,9 +153,23 @@ if (dist(mouseX, mouseY, locX[0], locY[0]) < 10) {
 // highlights location if clicked
    distance(mouseX, mouseY);
 
-drawLighting(100, 100, 0.2);
+drawBorder(1,1);
 
 }
+
+function blueBackground(r, g, b) {
+  background(r, g, b);
+  for (var i = 0; i < colNum*2; i++) {
+    noStroke();
+    fill(r-=0.1, g-=0.9, b-=1);
+    rect(0, colHeight*i/2, windowWidth, colHeight/2);
+  }
+  fill(0,0,0);
+
+  // fill(0,0,0);
+};
+
+
 // function that allows the cat to moveCat
 // i represents the co-ordinate of index of the destination in locX & locY
 
@@ -167,6 +200,24 @@ function distance(x, y) {
   }
 }
 }
+
+
+function drawBorder(x, y) {
+  for (var i = 0; i <= rowWidth*x; i++) {
+    fill(0,0,0);
+  }
+
+  for (var i = 0; i <= colHeight*y; i++) {
+    fill(0,0,0);
+  }
+
+}
+
+// draws a timeline with selected years from the dataset
+function drawTimeline() {
+  rect();
+}
+
 
 // draws a sad cloud at coordinates (x, y)
 function drawSadCloud(x, y, scale) {

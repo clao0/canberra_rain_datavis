@@ -23,3 +23,8 @@ licence: CC0 Creative Commons (displayed in the link above)
 by [Vernon Adams on Google Fonts]
 (https://fonts.google.com/specimen/Amatic+SC)
 licence: Open Font Licence (displayed in link above)
+
+- Rain sfx 1
+By Mike Koenig on soundbible
+(http://soundbible.com/2011-Rain-Background.html)
+licence: Creative Commons Attribution 3.0
