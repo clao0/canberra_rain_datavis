@@ -85,15 +85,15 @@ function setup() {
     data = Object.values(data);
     // any additional setup code goes here
     rowNum = 16;
-    colNum = 26;
+    colNum = 18;
     rowWidth = windowWidth/rowNum;
-    colHeight = windowHeight/colNum;
+    colHeight = (windowHeight-120)/colNum;
 
     locX = [rowWidth*7, rowWidth*4, rowWidth*2, rowWidth*2, rowWidth*12,
     rowWidth*14];
 
-    locY = [colHeight*14, colHeight*12, colHeight*15, colHeight*8, colHeight*23,
-      colHeight*10];
+    locY = [colHeight*8+120, colHeight*6+120, colHeight*9+120, colHeight*2+120,
+      colHeight*17+120,colHeight*4+120];
 
     locNames = ["Parliament House", "Botanic Gardens", "Ainslie",
   "Aranda", "Queanbeyan", "Torrens"];
@@ -259,8 +259,8 @@ function backgroundBlend(r, g, b) {
   background(r, g, b);
   for (var i = 0; i < colNum*2; i++) {
     noStroke();
-    fill(r-=0.1, g-=0.9, b-=1);
-    rect(0, colHeight*i/2, windowWidth, colHeight/2);
+    fill(r-=0.2, g-=1.8, b-=2);
+    rect(0, colHeight*i/2+120, windowWidth, colHeight/2);
 
   }
 
