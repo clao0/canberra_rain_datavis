@@ -9,6 +9,9 @@ var catMouse;
 // border image
 var border;
 
+// clock image
+var clock;
+
 // boolean used to alternate between cat images
 var catMoving;
 
@@ -44,6 +47,12 @@ var rainfall1990;
 var rainfall2009;
 var rainfall2014;
 
+// keeps track of what year is selected
+var year;
+var year1990;
+var year2009;
+var year2014;
+
 // various sfx
 
 var rainsfx;
@@ -57,6 +66,7 @@ function preload() {
     cat = loadImage("assets/cat.png");
     catMouse = loadImage("assets/catmouse.png");
     border = loadImage("assets/border.png");
+    clock = loadImage("assets/clock.png");
     rainsfx = loadSound("assets/rain1.mp3");
     thundersfx = loadSound("assets/thunder.mp3");
 }
@@ -98,22 +108,32 @@ function setup() {
     amatic = loadFont("assets/AmaticSC-Regular.ttf");
 
     catLoc = [windowWidth/2, windowHeight/2];
-
-
-   // maybe just calculate the average separately/manually??
 }
 
 function draw() {
     // your "draw loop" code goes here
 
-    // for blended backgrounds, rects, slightly different colours
-    background("#ffffff");
- distance(mouseX, mouseY);
+      background("#676a6d");
 
-  // background(0,0,0);
-  // fill("#c0eaf9");
-  // rect(rowWidth, colHeight*2, windowWidth-rowWidth*2, windowHeight-colHeight*4);
-  // fill(0,0,0)
+      for (var i = 0; i <= colNum; i++) {
+        noStroke();
+        fill("#ffffff");
+        ellipse(i*rowWidth, 10, 120);
+      }
+
+ distance(mouseX, mouseY);
+ //
+ // image(clock, windowWidth/4-10, 5, clock.width/30, clock.height/30);
+ // image(clock, windowWidth/2-10, 5, clock.width/30, clock.height/30);
+ // image(clock, windowWidth*3/4-10, 5, clock.width/30, clock.height/30);
+ fill(0,0,0);
+  textFont(amatic, 40);
+ image(border, windowWidth/4-25, 5, 60, 50);
+ text("1990", windowWidth/4-20, 40);
+  image(border, windowWidth/2-25, 5, 60, 50);
+ text("2009", windowWidth/2-20, 40);
+  image(border, windowWidth*3/4-25, 5, 60, 50);
+ text("2017", windowWidth*3/4-20, 40);
 
 
 if (dist(mouseX, mouseY, locX[0], locY[0]) < 10) {
