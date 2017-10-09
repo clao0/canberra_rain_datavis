@@ -315,16 +315,25 @@ function backgroundBlend(r, g, b) {
 // TODO: make them move in the correct ratio using trignometry
 // should solve the bug of never becoming the right cat
 function moveCat(i) {
+  var distX = Math.abs(locX[i] - catLoc[0]);
+  var distY = Math.abs(locY[i] - catLoc[1]);
+  var ratio;
+  if (distX > distY) {
+    ratio = distY/distX;
+  } else {
+    ratio = distX/distY;
+  }
+
     if (catLoc[0] == locX[i] && catLoc[1] == locY[i]) {
       image(cat, catLoc[0], catLoc[1], cat.width/10, cat.height/10);
     } else if (catLoc[0] >= locX[i] && catLoc[1] >= locY[i]) {
-       image(catMouse, catLoc[0]--, catLoc[1]--, catMouse.width/10, catMouse.height/10);
+       image(catMouse, catLoc[0]--, catLoc[1]-=(1*ratio), catMouse.width/10, catMouse.height/10);
     } else if (catLoc[0] <= locX[i] && catLoc[1] >= locY[i]) {
-      image(catMouse, catLoc[0]++, catLoc[1]--, catMouse.width/10, catMouse.height/10);
+      image(catMouse, catLoc[0]++, catLoc[1]-=(1*ratio), catMouse.width/10, catMouse.height/10);
     } else if (catLoc[0] <= locX[i] && catLoc[1] <= locY[i]) {
-      image(catMouse, catLoc[0]++, catLoc[1]++, catMouse.width/10, catMouse.height/10);
+      image(catMouse, catLoc[0]++, catLoc[1]+=(1+ratio), catMouse.width/10, catMouse.height/10);
     } else if (catLoc[0] >= locX[i] && catLoc[1] <= locY[i]) {
-      image(catMouse, catLoc[0]--, catLoc[1]++, catMouse.width/10, catMouse.height/10);
+      image(catMouse, catLoc[0]--, catLoc[1]+=(1*ratio), catMouse.width/10, catMouse.height/10);
     }
 }
 
