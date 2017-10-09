@@ -67,6 +67,11 @@ var queanbeyan;
 // keeps track of the latest station
 var currentStation;
 
+// ranks the locations by rainfall (most to least)
+var locRank1990;
+var lockRank2009;
+var lockRank2014;
+
 // stores current location of the cat
 var catLoc;
 
@@ -121,6 +126,13 @@ function setup() {
 // if rain is from 40-46, normal rain cloud
 // if rain is from 47-54, sad rain cloud
 // if rain is from 55-60, storm rain cloud
+
+
+// ranks rainfall from largest to smallest
+
+   locRank1990 = [5, 1, 3, 2, 6, 4];
+   locRank2009 = [3, 1, 2, 4, 5, 6];
+   locRank2014 = [6, 5, 3, 2, 4, 1];
 
    rainfall1990 = [53.06, 59.88, 56.13, 57.53, 45.67, 54.82];
    rainfall2009 = [40.55, 44.38, 43.21, 40.45, 40.12, 40.6];
@@ -266,6 +278,7 @@ function changeYears() {
 function reset() {
   rainsfx.stop();
   thundersfx.stop();
+  birdsfx.stop();
   backgroundRain = false;
   backgroundPelting = false;
   backgroundStorm = false;
@@ -337,7 +350,6 @@ if (dist(x, y, locX[0], locY[0]) < 10) {
    torrens = true;
    currentStation = "torrens";
 }
-
 }
 
 // starts drawing clouds at correct location
@@ -373,31 +385,82 @@ function startClouds() {
   }
 }
 
+function drawCloudNum(n, i, type) {
+  if (type == "rain") {
+  if (n == 6) {
+    drawCloud(locX[i]-50, locY[i] - 240, 0.8);
+  } else if (n == 5) {
+    drawCloud(locX[i]-50, locY[i] - 220, 0.7);
+  } else if (n == 4) {
+    drawCloud(locX[i]-50*(0.4/0.5), locY[i] - 200, 0.6);
+  } else if (n == 3) {
+    drawCloud(locX[i]-50*(0.3/0.5), locY[i] - 170, 0.5);
+  } else if (n == 2) {
+    drawCloud(locX[i]-50*(0.2/0.5), locY[i] - 150, 0.4);
+  } else {
+    drawCloud(locX[i]-50*(0.1/0.5), locY[i] - 130, 0.3);
+  }
+} else if (type == "pelting") {
+  if (n == 6) {
+    drawSadCloud(locX[i]-50, locY[i] - 240, 0.8);
+  } else if (n == 5) {
+    drawSadCloud(locX[i]-50, locY[i] - 220, 0.7);
+  } else if (n == 4) {
+    drawSadCloud(locX[i]-50*(0.4/0.5), locY[i] - 200, 0.6);
+  } else if (n == 3) {
+    drawSadCloud(locX[i]-50*(0.3/0.5), locY[i] - 170, 0.5);
+  } else if (n == 2) {
+    drawSadCloud(locX[i]-50*(0.2/0.5), locY[i] - 150, 0.4);
+  } else {
+    drawSadCloud(locX[i]-50*(0.1/0.5), locY[i] - 130, 0.3);
+  }
+} else if (type == "storm") {
+  if (n == 6) {
+    drawStormCloud(locX[i]-50, locY[i] - 240, 0.8);
+  } else if (n == 5) {
+    drawStormCloud(locX[i]-50, locY[i] - 220, 0.7);
+  } else if (n == 4) {
+    drawStormCloud(locX[i]-50*(0.4/0.5), locY[i] - 200, 0.6);
+  } else if (n == 3) {
+    drawStormCloud(locX[i]-50*(0.3/0.5), locY[i] - 170, 0.5);
+  } else if (n == 2) {
+    drawStormCloud(locX[i]-50*(0.2/0.5), locY[i] - 150, 0.4);
+  } else {
+    drawStormCloud(locX[i]-50*(0.1/0.5), locY[i] - 130, 0.3);
+  }
+}
+}
+
 function drawStuff(i) {
   if (year1990) {
       if (rainfall1990[i] < 47) {
-        drawCloud(locX[i] - 60, locY[i] - 200, 0.5);
+        drawCloudNum(locRank1990[i], i, "rain");
       } else if (rainfall1990[i] < 54) {
-        drawSadCloud(locX[i] - 60, locY[i] - 200, 0.5);
+        drawCloudNum(locRank1990[i], i, "pelting");
       } else {
-        drawStormCloud(locX[i]-60, locY[i]-200, 0.5);
-      }
-    } else if (year2009) {
+        drawCloudNum(locRank1990[i], i, "storm");
+        }
+      } else if (year2009) {
       if (rainfall2009[i] < 47) {
-        drawCloud(locX[i] - 60, locY[i] - 200, 0.5);
+        drawCloudNum(locRank2009[i], i, "rain");
       } else if (rainfall2009[i] < 54) {
-        drawSadCloud(locX[i] - 60, locY[i] - 200, 0.5);
+        drawCloudNum(locRank2009[i], i, "pelting");
       } else {
-        drawStormCloud(locX[i]-60, locY[i]-200, 0.5);
+        drawCloudNum(locRank2009[i], i, "storm");
       }
     } else {
       if (rainfall2014[i] < 47) {
-        drawCloud(locX[i] - 60, locY[i] - 200, 0.5);
+        drawCloudNum(locRank2014[i], i, "rain");
       } else if (rainfall2014[i] < 54) {
-        drawSadCloud(locX[i] - 60, locY[i] - 200, 0.5);
+        drawCloudNum(locRank2014[i], i, "pelting");
       } else {
-        drawStormCloud(locX[i]-60, locY[i]-200, 0.5);
+        drawCloudNum(locRank2014[i], i, "storm");
       }
+
+
+      // locNames = ["Parliament House", "Botanic Gardens", "Ainslie",
+      // "Aranda", "Queanbeyan", "Torrens"];
+      // rainfall2014 = [40.55, 45.05, 52.83, 57.53, 48.12, 60.9];
 }
 }
 
@@ -469,11 +532,11 @@ function drawSadCloud(x, y, scale) {
   noStroke();
   translate(x, y);
 
-    drawPeltingRain(70, 60+frameCount*6*60);
-    drawPeltingRain(90, 50+frameCount*5%60);
-    drawPeltingRain(80, 60+(frameCount*2%60));
-    drawPeltingRain(60, 30+(frameCount*3%60));
-    drawPeltingRain(100, 50+(frameCount*4%60));
+    drawPeltingRain(70*(scale/0.5), (60*(scale/0.5)+frameCount*6*60), scale);
+    drawPeltingRain(90*(scale/0.5), (50*(scale/0.5)+frameCount*5%60), scale);
+    drawPeltingRain(80*(scale/0.5), (60*(scale/0.5)+frameCount*2%60), scale);
+    drawPeltingRain(60*(scale/0.5), (30*(scale/0.5)+frameCount*3%60), scale);
+    drawPeltingRain(100*(scale/0.5), (50*(scale/0.5)+frameCount*4%60), scale);
 
   fill("#999da3");
 
@@ -508,10 +571,10 @@ function drawLighting(x, y, scale) {
 
 
 // draws faster, pelting rain
-function drawPeltingRain(x, y) {
+function drawPeltingRain(x, y, scale) {
   translate(x, y);
   fill("#000556");
-  rect(0, 0, 1, 15);
+  rect(0, 0, 1*scale, 15*scale);
   translate(-x, -y);
   fill(0,0,0);
 }
@@ -521,9 +584,9 @@ function drawCloud(x, y, scale) {
 
   translate(x, y);
 
-  drawRain(70, 60+frameCount*0.8%50);
-  drawRain(90, 50+frameCount*1.2%40);
-  drawRain(50, 50+frameCount*0.7%60);
+  drawRain(70, 60+frameCount*0.8%50, scale/0.5);
+  drawRain(90, 50+frameCount*1.2%40, scale/0.5);
+  drawRain(50, 50+frameCount*0.7%60, scale/0.5);
 
   fill("#ffffff");
 
@@ -542,10 +605,10 @@ function drawCloud(x, y, scale) {
   translate(-x, -y);
 }
 
-function drawHorizontalRain(x, y) {
+function drawHorizontalRain(x, y, scale) {
   translate(x, y);
   stroke("#0e3677");
-  line(0,0, 5, 5);
+  line(0,0, 5*scale, 5*scale);
   translate(-x, -y);
 
 }
@@ -555,14 +618,14 @@ function drawStormCloud(x, y, scale) {
   translate(x,y);
 
 
-  drawHorizontalRain(70+frameCount*6%60, 60+frameCount*6%60);
-  drawHorizontalRain(90+frameCount*5%60, 50+frameCount*5%60);
-  drawHorizontalRain(80+frameCount*2%60, 60+(frameCount*2%60));
-  drawHorizontalRain(60+frameCount*3%60, 30+(frameCount*3%60));
-  drawHorizontalRain(100+frameCount*4%60, 50+(frameCount*4%60));
+  drawHorizontalRain(70+frameCount*6%60, 60+frameCount*6%60, scale);
+  drawHorizontalRain(90+frameCount*5%60, 50+frameCount*5%60, scale);
+  drawHorizontalRain(80+frameCount*2%60, 60+(frameCount*2%60), scale);
+  drawHorizontalRain(60+frameCount*3%60, 30+(frameCount*3%60), scale);
+  drawHorizontalRain(100+frameCount*4%60, 50+(frameCount*4%60), scale);
 
-      drawLighting(50+frameCount*2%50, 50+frameCount*2%60, 0.2);
-      drawLighting(90+frameCount*2%50, 50+frameCount*1.5%60, 0.2);
+      drawLighting(50+frameCount*2%50, 50+frameCount*2%60, 0.2*(scale/0.5));
+      drawLighting(90+frameCount*2%50, 50+frameCount*1.5%60, 0.2*(scale/0.5));
 
   fill("#636262");
 
@@ -583,10 +646,10 @@ function drawStormCloud(x, y, scale) {
 }
 
 // draws rain at coordinate(x, y)
-function drawRain(x, y) {
+function drawRain(x, y, scale) {
   fill("#5385d6");
-  ellipse(x, y, 10);
-  triangle(x-5, y, x, y-10, x+5, y);
+  ellipse(x*scale, y*scale, 10*scale);
+  triangle(x*scale-5*scale, y*scale, x*scale, y*scale-10*scale, x*scale+5*scale, y*scale);
   fill(0,0,0);
 }
 
