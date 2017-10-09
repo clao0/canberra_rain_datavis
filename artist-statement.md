@@ -19,4 +19,6 @@ to their real locations, to changing the background colour, sound and cloud type
 depending on the amount of rainfall.
 
 After viewing my artwork, I want the viewer to be more informed about Canberra's
-rainfall and additionally, also know more about the geographical locations.
+rainfall and additionally, also have a better spatial awareness of its geographical
+locations. Additionally, I wanted the viewer to reflect on how rainfall might
+affect locals/wildlife.
