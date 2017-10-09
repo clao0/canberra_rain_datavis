@@ -94,10 +94,10 @@ function setup() {
     rowWidth = windowWidth/rowNum;
     colHeight = (windowHeight-120)/colNum;
 
-    locX = [rowWidth*7, rowWidth*4, rowWidth*2, rowWidth*2, rowWidth*12,
+    locX = [rowWidth*7, rowWidth*4, rowWidth*2, rowWidth/2, rowWidth*12,
     rowWidth*14];
 
-    locY = [colHeight*8+120, colHeight*6+120, colHeight*9+120, colHeight*2+120,
+    locY = [colHeight*8+120, colHeight*6+120, colHeight*9+120, colHeight*2+200,
       colHeight*14+120,colHeight*4+120];
 
     locNames = ["Parliament House", "Botanic Gardens", "Ainslie",
@@ -118,13 +118,6 @@ function setup() {
   backgroundPelting = false;
   backgroundStorm = false;
 
-// if rain is from 40-46, normal rain cloud
-// if rain is from 47-54, sad rain cloud
-// if rain is from 55-60, storm rain cloud
-
-
-// ranks rainfall from largest to smallest
-
    locRank1990 = [5, 1, 3, 2, 6, 4];
    locRank2009 = [3, 1, 2, 4, 5, 6];
    locRank2014 = [6, 5, 3, 2, 4, 1];
@@ -141,9 +134,10 @@ function setup() {
 }
 
 function draw() {
-    // your "draw loop" code goes here
 
       changeYears();
+
+// creates appropriate bg and sfx
 
       if (backgroundRain) {
         backgroundBlend(192, 234, 249);
@@ -176,6 +170,8 @@ function draw() {
          backgroundBlend(237, 251, 255);
       }
 
+// draws top cloud border
+
       for (var i = 0; i <= colNum; i++) {
         noStroke();
         fill("#bcd3d8");
@@ -183,6 +179,8 @@ function draw() {
       }
 
 drawYears();
+
+// handles cat movement
 
 if (dist(mouseX, mouseY, locX[0], locY[0]) < 10) {
     moveCat(0);
@@ -208,12 +206,15 @@ if (dist(mouseX, mouseY, locX[0], locY[0]) < 10) {
      text("Elevation:"+altitudes[i]+" m", locX[i], locY[i]-20);
    }
 
+// checks distance
 distance(mouseX, mouseY);
 
+// draws clouds
 startClouds();
 
 }
 
+// draws and highlights appropriate year
 function drawYears() {
 if (year1990) {
   fill("#3599b7");
@@ -250,6 +251,7 @@ if (year1990) {
 }
 }
 
+// changes bools for year & resets state
 function changeYears() {
   if (mouseX >= windowWidth/4-25 && mouseX <= windowWidth/4+35
   && mouseY >= 5 && mouseY <= 55) {
@@ -289,6 +291,7 @@ function reset() {
   torrens = false;
 }
 
+// creates gradient background
 function backgroundBlend(r, g, b) {
   background(r, g, b);
   for (var i = 0; i < colNum*2; i++) {
@@ -310,9 +313,6 @@ function backgroundBlend(r, g, b) {
 
 // function that allows the cat to moveCat
 // i represents the co-ordinate of index of the destination in locX & locY
-
-// TODO: make them move in the correct ratio using trignometry
-// should solve the bug of never becoming the right cat
 function moveCat(i) {
   var distX = Math.abs(locX[i] - catLoc[0]);
   var distY = Math.abs(locY[i] - catLoc[1]);
@@ -336,7 +336,7 @@ function moveCat(i) {
     }
 }
 
-// fills in ellipse on map if you click on the point
+// moves the cat towards destination & updates currentStation
 function distance(x, y) {
 
 if (dist(x, y, locX[0], locY[0]) < 10) {
@@ -360,6 +360,7 @@ if (dist(x, y, locX[0], locY[0]) < 10) {
 }
 }
 
+// makes average rainfall number appear when location clicked
 function addRainfall(i) {
   if (year1990) {
     text("Rainfall:"+rainfall1990[i]+"ml", locX[i]+20, locY[i], 40);
@@ -371,7 +372,7 @@ function addRainfall(i) {
 
 }
 
-// starts drawing clouds at correct location
+// draws cloud + adds rainfall when station clicked
 function startClouds() {
   if (parliament) {
     drawBackground(currentStation);
@@ -410,6 +411,8 @@ function startClouds() {
   }
 }
 
+// helper function to draw clouds of different sizes
+// biggest cloud = most rainfall that year and vice versa
 function drawCloudNum(n, i, type) {
   if (type == "rain") {
   if (n == 1) {
@@ -456,6 +459,7 @@ function drawCloudNum(n, i, type) {
 }
 }
 
+// helper function to assist in drawing clouds
 function drawStuff(i) {
   if (year1990) {
       if (rainfall1990[i] < 47) {
@@ -485,6 +489,8 @@ function drawStuff(i) {
 }
 }
 
+
+// functions to help set backgrounds
 function setRain() {
   backgroundPelting = false;
   backgroundStorm = false;
@@ -503,6 +509,7 @@ function setStorm() {
   backgroundStorm = true;
 }
 
+// another helper function to create the correct background
 function backgroundHelp(i) {
   if (year1990) {
   if (rainfall1990[i] < 47) {
@@ -531,6 +538,7 @@ function backgroundHelp(i) {
 }
 }
 
+// helper function for bg
 function drawBackground(currentStation) {
   if (currentStation == "parliament") {
       backgroundHelp(0);
@@ -559,7 +567,7 @@ function drawSadCloud(x, y, scale) {
     drawPeltingRain(60*(scale/0.5), (30*(scale/0.5)+frameCount*3%60), scale);
     drawPeltingRain(100*(scale/0.5), (50*(scale/0.5)+frameCount*4%60), scale);
 
-  fill("#999da3");
+  fill("#808587");
 
   ellipse(100*scale, 100*scale, 90*scale);
   ellipse(125*scale, 50*scale, 80*scale);
@@ -588,8 +596,6 @@ function drawLighting(x, y, scale) {
   translate(-(x+x*scale), -(y+y*scale));
 
 }
-
-
 
 // draws faster, pelting rain
 function drawPeltingRain(x, y, scale) {
@@ -673,13 +679,3 @@ function drawRain(x, y, scale) {
   triangle(x*scale-5*scale, y*scale, x*scale, y*scale-10*scale, x*scale+5*scale, y*scale);
   fill(0,0,0);
 }
-
-// change clouds
-// make cat walk
-// add sfx
-// make the cloud stay when clicked
-// make sky change colour
-// add pictures of parliament etc.
-// draw a path where the cat goes
-// make rain in different directions
-// select 5 years or something
