@@ -32,7 +32,12 @@ by [Vernon Adams on Google Fonts]
 (https://fonts.google.com/specimen/Amatic+SC)
 licence: Open Font Licence (displayed in link above)
 
-- Rain sfx 1
+- Bird sfx
+By Mike Koenig on soundbible
+(http://soundbible.com/2006-Bird-In-Rain.html)
+licence: Creative Commons Attribution 3.0
+
+- Rain sfx
 By Mike Koenig on soundbible
 (http://soundbible.com/2011-Rain-Background.html)
 licence: Creative Commons Attribution 3.0
