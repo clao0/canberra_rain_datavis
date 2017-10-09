@@ -138,25 +138,15 @@ function draw() {
 
       changeYears();
 
-      background("#676a6d");
-
       if (backgroundRain) {
         backgroundBlend(192, 234, 249);
-      }
-
-      if (backgroundPelting) {
+      } else if (backgroundPelting) {
         backgroundBlend(178, 184, 186);
-      }
-
-      if (backgroundStorm) {
+      } else if (backgroundStorm) {
          backgroundBlend(75, 126, 142);
+      } else {
+         background("#676a6d");
       }
-
-
-    text(backgroundRain, 100, 100, 100);
-    text(backgroundStorm, 100, 200, 100);
-    text(backgroundPelting, 100, 300, 100);
-
 
       for (var i = 0; i <= colNum; i++) {
         noStroke();
@@ -392,287 +382,67 @@ function drawStuff(i) {
 }
 }
 
+function setRain() {
+  backgroundPelting = false;
+  backgroundStorm = false;
+  backgroundRain = true;
+}
+
+function setPelting() {
+  backgroundRain = false;
+  backgroundStorm = false;
+  backgroundPelting = true;
+}
+
+function setStorm() {
+  backgroundRain = false;
+  backgroundPelting = false;
+  backgroundStorm = true;
+}
+
+function backgroundHelp(i) {
+  if (year1990) {
+  if (rainfall1990[i] < 47) {
+    setRain();
+  } else if (rainfall1990[i] < 54) {
+    setPelting();
+  } else {
+    setStorm();
+  }
+} else if (year2009) {
+  if (rainfall2009[i] < 47) {
+    setRain();
+  } else if (rainfall2009[i] < 54) {
+    setPelting();
+  } else {
+    setStorm();
+  }
+} else {
+  if (rainfall2014[i] < 47) {
+    setRain();
+  } else if (rainfall2014[i] < 54) {
+    setPelting();
+  } else {
+    setStorm();
+  }
+}
+}
+
 function drawBackground(currentStation) {
   if (currentStation == "parliament") {
-    if (year1990) {
-        if (rainfall1990[0] < 47) {
-          backgroundPelting = false;
-          backgroundStorm = false;
-          backgroundRain = true;
-        } else if (rainfall1990[0] < 54) {
-          backgroundRain = false;
-          backgroundStorm = false;
-          backgroundPelting = true;
-        } else {
-          backgroundRain = false;
-          backgroundPelting = false;
-          backgroundStorm = true;
-        }
-      } else if (year2009) {
-        if (rainfall2009[0] < 47) {
-          backgroundPelting = false;
-          backgroundStorm = false;
-          backgroundRain = true;
-        } else if (rainfall2009[0] < 54) {
-          backgroundRain = false;
-          backgroundStorm = false;
-          backgroundPelting = true;
-        } else {
-          backgroundRain = false;
-          backgroundPelting = false;
-          backgroundStorm = true;
-        }
-      } else {
-        if (rainfall2014[0] < 47) {
-          backgroundPelting = false;
-          backgroundStorm = false;
-          backgroundRain = true;
-        } else if (rainfall2014[0] < 54) {
-          backgroundRain = false;
-          backgroundStorm = false;
-          backgroundPelting = true;
-        } else {
-          backgroundRain = false;
-          backgroundPelting = false;
-          backgroundStorm = true;
-        }
-  }
+      backgroundHelp(0);
 } else if (currentStation == "botanic") {
-    if (year1990) {
-        if (rainfall1990[1] < 47) {
-          backgroundPelting = false;
-          backgroundStorm = false;
-          backgroundRain = true;
-        } else if (rainfall1990[1] < 54) {
-          backgroundRain = false;
-          backgroundStorm = false;
-          backgroundPelting = true;
-        } else {
-          backgroundRain = false;
-          backgroundPelting = false;
-          backgroundStorm = true;
-        }
-      } else if (year2009) {
-        if (rainfall2009[1] < 47) {
-          backgroundPelting = false;
-          backgroundStorm = false;
-          backgroundRain = true;
-        } else if (rainfall2009[1] < 54) {
-          backgroundRain = false;
-          backgroundStorm = false;
-          backgroundPelting = true;
-        } else {
-          backgroundRain = false;
-          backgroundPelting = false;
-          backgroundStorm = true;
-        }
-      } else {
-        if (rainfall2014[1] < 47) {
-          backgroundPelting = false;
-          backgroundStorm = false;
-          backgroundRain = true;
-        } else if (rainfall2014[1] < 54) {
-          backgroundRain = false;
-          backgroundStorm = false;
-          backgroundPelting = true;
-        } else {
-          backgroundRain = false;
-          backgroundPelting = false;
-          backgroundStorm = true;
-        }
-  }
+    backgroundHelp(1);
 } else if (currentStation == "ainslie") {
-    if (year1990) {
-        if (rainfall1990[2] < 47) {
-          backgroundPelting = false;
-          backgroundStorm = false;
-          backgroundRain = true;
-        } else if (rainfall1990[2] < 54) {
-          backgroundRain = false;
-          backgroundStorm = false;
-          backgroundPelting = true;
-        } else {
-          backgroundRain = false;
-          backgroundPelting = false;
-          backgroundStorm = true;
-        }
-      } else if (year2009) {
-        if (rainfall2009[2] < 47) {
-          backgroundPelting = false;
-          backgroundStorm = false;
-          backgroundRain = true;
-        } else if (rainfall2009[2] < 54) {
-          backgroundRain = false;
-          backgroundStorm = false;
-          backgroundPelting = true;
-        } else {
-          backgroundRain = false;
-          backgroundPelting = false;
-          backgroundStorm = true;
-        }
-      } else {
-        if (rainfall2014[2] < 47) {
-          backgroundPelting = false;
-          backgroundStorm = false;
-          backgroundRain = true;
-        } else if (rainfall2014[2] < 54) {
-          backgroundRain = false;
-          backgroundStorm = false;
-          backgroundPelting = true;
-        } else {
-          backgroundRain = false;
-          backgroundPelting = false;
-          backgroundStorm = true;
-        }
-  }
+    backgroundHelp(2);
 } else if (currentStation == "aranda") {
-    if (year1990) {
-        if (rainfall1990[3] < 47) {
-          backgroundPelting = false;
-          backgroundStorm = false;
-          backgroundRain = true;
-        } else if (rainfall1990[3] < 54) {
-          backgroundRain = false;
-          backgroundStorm = false;
-          backgroundPelting = true;
-        } else {
-          backgroundRain = false;
-          backgroundPelting = false;
-          backgroundStorm = true;
-        }
-      } else if (year2009) {
-        if (rainfall2009[3] < 47) {
-          backgroundPelting = false;
-          backgroundStorm = false;
-          backgroundRain = true;
-        } else if (rainfall2009[3] < 54) {
-          backgroundRain = false;
-          backgroundStorm = false;
-          backgroundPelting = true;
-        } else {
-          backgroundRain = false;
-          backgroundPelting = false;
-          backgroundStorm = true;
-        }
-      } else {
-        if (rainfall2014[3] < 47) {
-          backgroundPelting = false;
-          backgroundStorm = false;
-          backgroundRain = true;
-        } else if (rainfall2014[3] < 54) {
-          backgroundRain = false;
-          backgroundStorm = false;
-          backgroundPelting = true;
-        } else {
-          backgroundRain = false;
-          backgroundPelting = false;
-          backgroundStorm = true;
-        }
-  }
+    backgroundHelp(3);
 } else if (currentStation == "queanbeyan") {
-    if (year1990) {
-        if (rainfall1990[4] < 47) {
-          backgroundPelting = false;
-          backgroundStorm = false;
-          backgroundRain = true;
-        } else if (rainfall1990[4] < 54) {
-          backgroundRain = false;
-          backgroundStorm = false;
-          backgroundPelting = true;
-        } else {
-          backgroundRain = false;
-          backgroundPelting = false;
-          backgroundStorm = true;
-        }
-      } else if (year2009) {
-        if (rainfall2009[4] < 47) {
-          backgroundPelting = false;
-          backgroundStorm = false;
-          backgroundRain = true;
-        } else if (rainfall2009[4] < 54) {
-          backgroundRain = false;
-          backgroundStorm = false;
-          backgroundPelting = true;
-        } else {
-          backgroundRain = false;
-          backgroundPelting = false;
-          backgroundStorm = true;
-        }
-      } else {
-        if (rainfall2014[4] < 47) {
-          backgroundPelting = false;
-          backgroundStorm = false;
-          backgroundRain = true;
-        } else if (rainfall2014[4] < 54) {
-          backgroundRain = false;
-          backgroundStorm = false;
-          backgroundPelting = true;
-        } else {
-          backgroundRain = false;
-          backgroundPelting = false;
-          backgroundStorm = true;
-        }
-  }
+    backgroundHelp(4);
 } else if (currentStation == "torrens") {
-    if (year1990) {
-        if (rainfall1990[1] < 47) {
-          backgroundPelting = false;
-          backgroundStorm = false;
-          backgroundRain = true;
-        } else if (rainfall1990[1] < 54) {
-          backgroundRain = false;
-          backgroundStorm = false;
-          backgroundPelting = true;
-        } else {
-          backgroundRain = false;
-          backgroundPelting = false;
-          backgroundStorm = true;
-        }
-      } else if (year2009) {
-        if (rainfall2009[5] < 47) {
-          backgroundPelting = false;
-          backgroundStorm = false;
-          backgroundRain = true;
-        } else if (rainfall2009[5] < 54) {
-          backgroundRain = false;
-          backgroundStorm = false;
-          backgroundPelting = true;
-        } else {
-          backgroundRain = false;
-          backgroundPelting = false;
-          backgroundStorm = true;
-        }
-      } else {
-        if (rainfall2014[5] < 47) {
-          backgroundPelting = false;
-          backgroundStorm = false;
-          backgroundRain = true;
-        } else if (rainfall2014[5] < 54) {
-          backgroundRain = false;
-          backgroundStorm = false;
-          backgroundPelting = true;
-        } else {
-          backgroundRain = false;
-          backgroundPelting = false;
-          backgroundStorm = true;
-        }
-  }
+   backgroundHelp(5);
 }
 }
-
-
-
-
-//   locNames = ["Parliament House", "Botanic Gardens", "Ainslie",
-// "Aranda", "Queanbeyan", "Torrens"];
-
-
-// blue blackground (192, 234, 249)
-// stormy grey background (178, 184, 186)
-// dark pelting rain background (75, 126, 142)
-
-
-
 
 // draws a sad cloud at coordinates (x, y)
 function drawSadCloud(x, y, scale) {
