@@ -5,7 +5,12 @@ assignment is entirely my own work, with the following exceptions:
 
 ## Inspiration
 
+I was inspired by mobile weather apps and wanted to recreate this is a more
+quirky manner.
+
 ## Code
+
+function moveCat was discussed with tutor.
 
 ## Assets
 
