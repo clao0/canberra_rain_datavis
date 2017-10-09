@@ -198,7 +198,7 @@ if (dist(mouseX, mouseY, locX[0], locY[0]) < 10) {
 }  else if (dist(mouseX, mouseY, locX[5], locY[5]) < 10) {
     moveCat(5);
 } else {
-   image(cat, catLoc[0], catLoc[1], cat.width/10, cat.height/10);
+   image(cat, catLoc[0], catLoc[1], cat.width/15, cat.height/15);
 }
 
 // draws locations
@@ -325,15 +325,15 @@ function moveCat(i) {
   }
 
     if (catLoc[0] == locX[i] && catLoc[1] == locY[i]) {
-      image(cat, catLoc[0], catLoc[1], cat.width/10, cat.height/10);
+      image(cat, catLoc[0], catLoc[1], cat.width/15, cat.height/15);
     } else if (catLoc[0] >= locX[i] && catLoc[1] >= locY[i]) {
-       image(catMouse, catLoc[0]--, catLoc[1]-=(1*ratio), catMouse.width/10, catMouse.height/10);
+       image(catMouse, catLoc[0]--, catLoc[1]-=(1*ratio), catMouse.width/15, catMouse.height/15);
     } else if (catLoc[0] <= locX[i] && catLoc[1] >= locY[i]) {
-      image(catMouse, catLoc[0]++, catLoc[1]-=(1*ratio), catMouse.width/10, catMouse.height/10);
+      image(catMouse, catLoc[0]++, catLoc[1]-=(1*ratio), catMouse.width/15, catMouse.height/15);
     } else if (catLoc[0] <= locX[i] && catLoc[1] <= locY[i]) {
-      image(catMouse, catLoc[0]++, catLoc[1]+=(1+ratio), catMouse.width/10, catMouse.height/10);
+      image(catMouse, catLoc[0]++, catLoc[1]+=(1+ratio), catMouse.width/15, catMouse.height/15);
     } else if (catLoc[0] >= locX[i] && catLoc[1] <= locY[i]) {
-      image(catMouse, catLoc[0]--, catLoc[1]+=(1*ratio), catMouse.width/10, catMouse.height/10);
+      image(catMouse, catLoc[0]--, catLoc[1]+=(1*ratio), catMouse.width/15, catMouse.height/15);
     }
 }
 
