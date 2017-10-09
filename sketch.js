@@ -9,12 +9,6 @@ var catMouse;
 // border image
 var border;
 
-// clock image
-var clock;
-
-// boolean used to alternate between cat images
-var catMoving;
-
 // locations of monitoring stations
 var locX;
 var locY;
@@ -70,8 +64,8 @@ var currentStation;
 
 // ranks the locations by rainfall (most to least)
 var locRank1990;
-var lockRank2009;
-var lockRank2014;
+var locRank2009;
+var locRank2014;
 
 // stores current location of the cat
 var catLoc;
@@ -81,7 +75,6 @@ function preload() {
     cat = loadImage("assets/cat.png");
     catMouse = loadImage("assets/catmouse.png");
     border = loadImage("assets/border.png");
-    clock = loadImage("assets/clock.png");
     rainsfx = loadSound("assets/rain1.mp3");
     thundersfx = loadSound("assets/thunder.mp3");
     birdsfx = loadSound("assets/birdrain.mp3");
@@ -95,7 +88,7 @@ function setup() {
     // this line is required due to a bug in the current version of p5
     // https://github.com/processing/p5.js/issues/2154
     data = Object.values(data);
-    // any additional setup code goes here
+
     rowNum = 16;
     colNum = 18;
     rowWidth = windowWidth/rowNum;
@@ -141,8 +134,6 @@ function setup() {
    rainfall2014 = [40.55, 45.05, 52.83, 57.53, 48.12, 60.9];
 
     altitudes = [585, 585, 585, 630, 580, 653];
-
-    catMoving = false;
 
     amatic = loadFont("assets/AmaticSC-Regular.ttf");
 
@@ -421,43 +412,43 @@ function startClouds() {
 
 function drawCloudNum(n, i, type) {
   if (type == "rain") {
-  if (n == 6) {
+  if (n == 1) {
     drawCloud(locX[i]-50, locY[i] - 240, 0.8);
-  } else if (n == 5) {
-    drawCloud(locX[i]-50, locY[i] - 220, 0.7);
-  } else if (n == 4) {
-    drawCloud(locX[i]-50*(0.4/0.5), locY[i] - 200, 0.6);
-  } else if (n == 3) {
-    drawCloud(locX[i]-50*(0.3/0.5), locY[i] - 170, 0.5);
   } else if (n == 2) {
+    drawCloud(locX[i]-50, locY[i] - 220, 0.7);
+  } else if (n == 3) {
+    drawCloud(locX[i]-50*(0.4/0.5), locY[i] - 200, 0.6);
+  } else if (n == 4) {
+    drawCloud(locX[i]-50*(0.3/0.5), locY[i] - 170, 0.5);
+  } else if (n == 5) {
     drawCloud(locX[i]-50*(0.2/0.5), locY[i] - 150, 0.4);
   } else {
     drawCloud(locX[i]-50*(0.1/0.5), locY[i] - 130, 0.3);
   }
 } else if (type == "pelting") {
-  if (n == 6) {
+  if (n == 1) {
     drawSadCloud(locX[i]-50, locY[i] - 240, 0.8);
-  } else if (n == 5) {
-    drawSadCloud(locX[i]-50, locY[i] - 220, 0.7);
-  } else if (n == 4) {
-    drawSadCloud(locX[i]-50*(0.4/0.5), locY[i] - 200, 0.6);
-  } else if (n == 3) {
-    drawSadCloud(locX[i]-50*(0.3/0.5), locY[i] - 170, 0.5);
   } else if (n == 2) {
+    drawSadCloud(locX[i]-50, locY[i] - 220, 0.7);
+  } else if (n == 3) {
+    drawSadCloud(locX[i]-50*(0.4/0.5), locY[i] - 200, 0.6);
+  } else if (n == 4) {
+    drawSadCloud(locX[i]-50*(0.3/0.5), locY[i] - 170, 0.5);
+  } else if (n == 5) {
     drawSadCloud(locX[i]-50*(0.2/0.5), locY[i] - 150, 0.4);
   } else {
     drawSadCloud(locX[i]-50*(0.1/0.5), locY[i] - 130, 0.3);
   }
 } else if (type == "storm") {
-  if (n == 6) {
+  if (n == 1) {
     drawStormCloud(locX[i]-50, locY[i] - 240, 0.8);
-  } else if (n == 5) {
-    drawStormCloud(locX[i]-50, locY[i] - 220, 0.7);
-  } else if (n == 4) {
-    drawStormCloud(locX[i]-50*(0.4/0.5), locY[i] - 200, 0.6);
-  } else if (n == 3) {
-    drawStormCloud(locX[i]-50*(0.3/0.5), locY[i] - 170, 0.5);
   } else if (n == 2) {
+    drawStormCloud(locX[i]-50, locY[i] - 220, 0.7);
+  } else if (n == 3) {
+    drawStormCloud(locX[i]-50*(0.4/0.5), locY[i] - 200, 0.6);
+  } else if (n == 4) {
+    drawStormCloud(locX[i]-50*(0.3/0.5), locY[i] - 170, 0.5);
+  } else if (n == 5) {
     drawStormCloud(locX[i]-50*(0.2/0.5), locY[i] - 150, 0.4);
   } else {
     drawStormCloud(locX[i]-50*(0.1/0.5), locY[i] - 130, 0.3);
@@ -491,10 +482,6 @@ function drawStuff(i) {
         drawCloudNum(locRank2014[i], i, "storm");
       }
 
-
-      // locNames = ["Parliament House", "Botanic Gardens", "Ainslie",
-      // "Aranda", "Queanbeyan", "Torrens"];
-      // rainfall2014 = [40.55, 45.05, 52.83, 57.53, 48.12, 60.9];
 }
 }
 
@@ -592,13 +579,13 @@ function drawSadCloud(x, y, scale) {
 // draws lighting
 function drawLighting(x, y, scale) {
 
-  translate(x, y);
+  translate(x+x*scale, y+y*scale);
   noStroke();
   fill("#fcd167");
   triangle(-50*scale, 0*scale, -30*scale, 100*scale, 40*scale, 100*scale);
   triangle(10*scale, 100*scale, 80*scale, 100*scale, 100*scale, 200*scale);
   fill(0,0,0);
-  translate(-x, -y);
+  translate(-(x+x*scale), -(y+y*scale));
 
 }
 
@@ -640,10 +627,10 @@ function drawCloud(x, y, scale) {
 }
 
 function drawHorizontalRain(x, y, scale) {
-  translate(x, y);
+  translate(x+x*scale, y+y*scale);
   stroke("#0e3677");
   line(0,0, 5*scale, 5*scale);
-  translate(-x, -y);
+  translate(-(x+x*scale), -(y+y*scale));
 
 }
 
