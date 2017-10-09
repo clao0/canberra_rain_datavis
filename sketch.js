@@ -47,6 +47,7 @@ var year2009;
 var year2014;
 
 // various sfx
+var birdsfx;
 var rainsfx;
 var thundersfx;
 
@@ -77,6 +78,7 @@ function preload() {
     clock = loadImage("assets/clock.png");
     rainsfx = loadSound("assets/rain1.mp3");
     thundersfx = loadSound("assets/thunder.mp3");
+    birdsfx = loadSound("assets/birdrain.mp3");
 }
 
 function setup() {
@@ -140,17 +142,32 @@ function draw() {
 
       if (backgroundRain) {
         backgroundBlend(192, 234, 249);
+        thundersfx.stop();
+        rainsfx.stop();
+        if (birdsfx.isPlaying() == false) {
+            birdsfx.play();
+        }
       } else if (backgroundPelting) {
         backgroundBlend(178, 184, 186);
+        thundersfx.stop();
+        birdsfx.stop();
+        if (rainsfx.isPlaying() == false) {
+            rainsfx.play();
+        }
       } else if (backgroundStorm) {
          backgroundBlend(75, 126, 142);
+         rainsfx.stop();
+         birdsfx.stop();
+         if (thundersfx.isPlaying() == false) {
+            thundersfx.play();
+         }
       } else {
          background("#676a6d");
       }
 
       for (var i = 0; i <= colNum; i++) {
         noStroke();
-        fill("#ffffff");
+        fill("#bcd3d8");
         ellipse(i*rowWidth, 10, 120);
       }
 
@@ -247,6 +264,8 @@ function changeYears() {
 
 // resets to default state
 function reset() {
+  rainsfx.stop();
+  thundersfx.stop();
   backgroundRain = false;
   backgroundPelting = false;
   backgroundStorm = false;
