@@ -361,35 +361,52 @@ if (dist(x, y, locX[0], locY[0]) < 10) {
 }
 }
 
+function addRainfall(i) {
+  if (year1990) {
+    text("Rainfall:"+rainfall1990[i]+"ml", locX[i]+20, locY[i], 40);
+  } else if (year2009) {
+    text("Rainfall:"+rainfall2009[i]+"ml", locX[i]+20, locY[i], 40);
+  } else {
+    text("Rainfall:"+rainfall2014[i]+"ml", locX[i]+20, locY[i], 40);
+  }
+
+}
+
 // starts drawing clouds at correct location
 function startClouds() {
   if (parliament) {
     drawBackground(currentStation);
+    addRainfall(0);
     drawStuff(0);
   }
 
   if (botanic) {
     drawBackground(currentStation);
+    addRainfall(1);
     drawStuff(1);
   }
 
   if (ainslie) {
     drawBackground(currentStation);
+    addRainfall(2);
     drawStuff(2);
   }
 
   if (aranda) {
     drawBackground(currentStation);
+    addRainfall(3);
     drawStuff(3);
   }
 
   if (queanbeyan) {
     drawBackground(currentStation);
+    addRainfall(4);
     drawStuff(4);
   }
 
   if (torrens) {
     drawBackground(currentStation);
+    addRainfall(5);
     drawStuff(5);
   }
 }
