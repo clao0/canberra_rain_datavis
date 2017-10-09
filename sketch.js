@@ -50,6 +50,7 @@ var year2014;
 var birdsfx;
 var rainsfx;
 var thundersfx;
+var sunnysfx;
 
 // keeps track of backgrounds
 var backgroundRain;
@@ -84,6 +85,7 @@ function preload() {
     rainsfx = loadSound("assets/rain1.mp3");
     thundersfx = loadSound("assets/thunder.mp3");
     birdsfx = loadSound("assets/birdrain.mp3");
+    sunnysfx = loadSound("assets/sunny.mp3");
 }
 
 function setup() {
@@ -103,7 +105,7 @@ function setup() {
     rowWidth*14];
 
     locY = [colHeight*8+120, colHeight*6+120, colHeight*9+120, colHeight*2+120,
-      colHeight*17+120,colHeight*4+120];
+      colHeight*14+120,colHeight*4+120];
 
     locNames = ["Parliament House", "Botanic Gardens", "Ainslie",
   "Aranda", "Queanbeyan", "Torrens"];
@@ -156,6 +158,7 @@ function draw() {
         backgroundBlend(192, 234, 249);
         thundersfx.stop();
         rainsfx.stop();
+        sunnysfx.stop();
         if (birdsfx.isPlaying() == false) {
             birdsfx.play();
         }
@@ -163,6 +166,7 @@ function draw() {
         backgroundBlend(178, 184, 186);
         thundersfx.stop();
         birdsfx.stop();
+        sunnysfx.stop();
         if (rainsfx.isPlaying() == false) {
             rainsfx.play();
         }
@@ -170,11 +174,15 @@ function draw() {
          backgroundBlend(75, 126, 142);
          rainsfx.stop();
          birdsfx.stop();
+         sunnysfx.stop();
          if (thundersfx.isPlaying() == false) {
             thundersfx.play();
          }
       } else {
-         background("#676a6d");
+         if (sunnysfx.isPlaying() == false) {
+           sunnysfx.play();
+         }
+         backgroundBlend(237, 251, 255);
       }
 
       for (var i = 0; i <= colNum; i++) {

@@ -37,6 +37,11 @@ By Mike Koenig on soundbible
 (http://soundbible.com/2006-Bird-In-Rain.html)
 licence: Creative Commons Attribution 3.0
 
+- Sunny sfx
+By Stephen on soundbible
+(http://soundbible.com/1661-Sunny-Day.html)
+licence: Public Domain
+
 - Rain sfx
 By Mike Koenig on soundbible
 (http://soundbible.com/2011-Rain-Background.html)
