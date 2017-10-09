@@ -70,6 +70,17 @@ var locRank2014;
 // stores current location of the cat
 var catLoc;
 
+// checks if cat is at a location
+var catArrived;
+
+var catArrived1;
+var catArrived2;
+var catArrived3;
+var catArrived4;
+var catArrived5;
+var catArrived6;
+
+
 function preload() {
     data = loadJSON("assets/rainfall.json");
     cat = loadImage("assets/cat.png");
@@ -131,6 +142,15 @@ function setup() {
     amatic = loadFont("assets/AmaticSC-Regular.ttf");
 
     catLoc = [windowWidth/2, windowHeight/2];
+
+    catArrived = false;
+
+    catArrived1 = false;
+    catArrived2 = false;
+    catArrived3 = false;
+    catArrived4 = false;
+    catArrived5 = false;
+    catArrived6 = false;
 }
 
 function draw() {
@@ -289,6 +309,13 @@ function reset() {
   queanbeyan = false;
   aranda = false;
   torrens = false;
+  catArrived = false;
+  catArrived1 = false;
+    catArrived2 = false;
+      catArrived3 = false;
+        catArrived4 = false;
+          catArrived5 = false;
+            catArrived6 = false;  
 }
 
 // creates gradient background
@@ -323,16 +350,38 @@ function moveCat(i) {
     ratio = distX/distY;
   }
 
-    if (catLoc[0] == locX[i] && catLoc[1] == locY[i]) {
+    if ((catLoc[0] <= locX[i] +1) && catLoc[0] >= locX[i]-1 &&
+  catLoc[1] <= locY[i] +1 && catLoc[1] >= locY[i] - 1) {
+    catArrived = true;
       image(cat, catLoc[0], catLoc[1], cat.width/15, cat.height/15);
     } else if (catLoc[0] >= locX[i] && catLoc[1] >= locY[i]) {
-       image(catMouse, catLoc[0]--, catLoc[1]-=(1*ratio), catMouse.width/15, catMouse.height/15);
+      catArrived = false;
+      if (distX > distY) {
+           image(catMouse, catLoc[0]-=2, catLoc[1]-=(2*ratio), catMouse.width/15, catMouse.height/15);
+      } else {
+           image(catMouse, catLoc[0]-=(2*ratio), catLoc[1]-=2, catMouse.width/15, catMouse.height/15);
+      }
     } else if (catLoc[0] <= locX[i] && catLoc[1] >= locY[i]) {
-      image(catMouse, catLoc[0]++, catLoc[1]-=(1*ratio), catMouse.width/15, catMouse.height/15);
+  catArrived = false;
+      if (distX > distY) {
+           image(catMouse, catLoc[0]+=2, catLoc[1]-=(2*ratio), catMouse.width/15, catMouse.height/15);
+      } else {
+           image(catMouse, catLoc[0]+=(2*ratio), catLoc[1]-=2, catMouse.width/15, catMouse.height/15);
+      }
     } else if (catLoc[0] <= locX[i] && catLoc[1] <= locY[i]) {
-      image(catMouse, catLoc[0]++, catLoc[1]+=(1+ratio), catMouse.width/15, catMouse.height/15);
+  catArrived = false;
+      if (distX > distY) {
+           image(catMouse, catLoc[0]+=2, catLoc[1]+=(2*ratio), catMouse.width/15, catMouse.height/15);
+      } else {
+           image(catMouse, catLoc[0]+=(2*ratio), catLoc[1]+=2, catMouse.width/15, catMouse.height/15);
+      }
     } else if (catLoc[0] >= locX[i] && catLoc[1] <= locY[i]) {
-      image(catMouse, catLoc[0]--, catLoc[1]+=(1*ratio), catMouse.width/15, catMouse.height/15);
+  catArrived = false;
+      if (distX > distY) {
+           image(catMouse, catLoc[0]-=2, catLoc[1]+=(2*ratio), catMouse.width/15, catMouse.height/15);
+      } else {
+           image(catMouse, catLoc[0]-=(2*ratio), catLoc[1]+=2, catMouse.width/15, catMouse.height/15);
+      }
     }
 }
 
@@ -374,41 +423,66 @@ function addRainfall(i) {
 
 // draws cloud + adds rainfall when station clicked
 function startClouds() {
-  if (parliament) {
-    drawBackground(currentStation);
-    addRainfall(0);
-    drawStuff(0);
-  }
+  if (parliament && catArrived) {
+    catArrived1 = true;
+}
 
-  if (botanic) {
+if (catArrived1) {
+drawBackground(currentStation);
+addRainfall(0);
+drawStuff(0);
+}
+
+  if (botanic && catArrived) {
+    catArrived2 = true;
+}
+
+    if (catArrived2) {
     drawBackground(currentStation);
     addRainfall(1);
     drawStuff(1);
   }
 
-  if (ainslie) {
-    drawBackground(currentStation);
-    addRainfall(2);
-    drawStuff(2);
+  if (aranda && catArrived) {
+    catArrived4 = true;
   }
 
-  if (aranda) {
+  if (catArrived4) {
     drawBackground(currentStation);
     addRainfall(3);
     drawStuff(3);
   }
 
-  if (queanbeyan) {
+  if (ainslie && catArrived) {
+    catArrived3 = true;
+  }
+  if (catArrived3) {
+    drawBackground(currentStation);
+    addRainfall(2);
+    drawStuff(2);
+  }
+
+  if (queanbeyan && catArrived) {
+    catArrived5 = true;
+  }
+
+  if (catArrived5) {
     drawBackground(currentStation);
     addRainfall(4);
     drawStuff(4);
   }
 
-  if (torrens) {
+  if (torrens && catArrived) {
+    catArrived6 = true;
+  }
+
+  if (catArrived6){
     drawBackground(currentStation);
     addRainfall(5);
     drawStuff(5);
   }
+
+
 }
 
 // helper function to draw clouds of different sizes
